@@ -1,0 +1,102 @@
+\chapter{Apprendimento dei vari modelli neurali}
+
+\section{Apprendimento multi-task gerarchico}
+
+Le reti neurali convoluzionali (CNN, \textit{Convolutional Neural Networks}) sono le architetture standard per l’elaborazione dei segnali visivi. Si evolvono rispetto al \textit{Multi-Layer Perceptron} per l’utilizzo di tensori multidimensionali $(H \times W \times C)$, ove $H$ indica l'altezza, $W$ indica la larghezza e $C$ indica il numero di canali. Tale rappresentazione permette di preservare informazioni come le relazioni spaziali tra pixel vicini durante l’elaborazione, attraverso tre principi fondamentali:
+
+L’uso dei campi ricettivi locali (local receptive fields)
+Condivisione dei pesi tra i layer (weight sharing)
+Equivarianza alla traslazione (se l’oggetto si sposta, anche la feature map si sposta)
+
+Le reti raccolgono informazioni dall’immagine tramite l’utilizzo di filtri chiamati kernel. Questi analizzano una porzione locale di pixel adiacenti alla volta e producono un output associato a quella specifica posizione spaziale. 
+
+L’output è definito così:
+
+\begin{itemize}
+    \item $X$: tensore di input;
+    \item $W$: tensore dei pesi del kernel;
+    \item $k$: raggio del kernel;
+    \item $C_{in}$: numero di canali di input;
+    \item $b_{out}$: bias associato al canale di uscita.
+\end{itemize}
+
+\begin{equation}
+Y(i,j,c_{out}) =
+b_{out}
++
+\sum_{c=1}^{C_{in}}
+\sum_{m=-k}^{k}
+\sum_{n=-k}^{k}
+X(i+m,j+n,c),
+W(m,n,c,c_{out})
+\end{equation}
+
+Ovvero, il valore di output $Y$ nella posizione spaziale $(i, j)$ e nel canale di uscita $c_{out}$ è calcolato come somma pesata dei valori del tensore input $X$ in un intorno locale in posizione $(i, j)$ di dimensione $(2k+1) \times (2k+1)$. Ad esempio, per $k=1$ si ottiene un kernel di dimensione $3\times3$, mentre per $k=2$ si ottiene un kernel di dimensione $5\times5$.
+
+L'operazione viene eseguita considerando tutti i canali di input. Ogni valore di $X$ viene moltiplicato per il corrispondente peso $W$, appreso durante la fase di addestramento, e i prodotti ottenuti vengono sommati tra loro. Infine, al risultato viene aggiunto il termine di bias $b_{out}$ associato al canale di uscita.
+
+Questa formulazione spiega i principi elencati precedentemente.
+Il valore in posizione (i, j) dipende solo dalla porzione di input relativa a quella posizione, e non all’intera immagine come in un’architettura di rete MLP. Questo spiega il principio dei campi ricettivi locali. I pixel vicini sono più correlati tra loro, producono più informazioni se analizzate insieme tramite i kernel.
+
+Il principio della condivisione dei pesi permette l’utilizzo di un insieme di pesi W per calcolare Y in ogni posizione (i, j) del tensore del tensore di output. Senza di esso si avrebbe un insieme di pesi indipendenti per ogni posizione, e ci troveremmo nel caso di layer fully-connected.
+
+Dal principio della condivisione dei pesi si arriva al principio della equivarianza alla traslazione: lo stesso kernel W viene applicato ad ogni posizione (i, j) del tensore di input. Un pattern rilevato in (i, j) sarà rilevato alla stessa maniera anche in (i + Δ, j + Δ), qualora l'oggetto che lo produce si spostasse di un Δ nell’immagine. Un semplice spostamento nell’input produce uno spostamento corrispondente nell’output, senza dover calibrare i pesi per riconoscerlo
+
+Ciò che si è appena descritto definisce una singola operazione di convoluzione. Nella pratica non è sufficiente ad estrarre informazioni utili alla classificazione. Una CNN utilizza una sequenza di queste operazioni in ciò che vengono chiamati layer. Ogni layer riceve in input il tensore prodotto dal layer precedente. Il tensore viene elaborato e diventa input di un nuovo layer. I primi layer catturano informazioni semplici, come bordi e texture. Gli strati più interni catturano pattern complessi e significativi.
+
+Il numero di layer impilati si definisce profondità della rete.
+
+Si può pensare che l’aumento della profondità permette al modello di apprendere rappresentazioni sempre più complesse e astratte. Nella pratica avviene il contrario. L’aumento della profondità causa il problema del vanishing gradient.
+
+Durante l’addestramento, la rete apprende l’immagine bilanciando i propri pesi. Il gradiente della loss viene calcolato con la regola della catena, propagandosi all’indietro attraverso i layer successivi con la backpropagation. Ad ogni layer il gradiente viene moltiplicato per dei fattori. Spesso, questi sono minori di 1. Con tanti layer, il gradiente tende a ridursi esponenzialmente, fino a diventare trascurabile. Ciò provoca un aggiornamento dei pesi lento, nullo in casi estremi, causando un arresto dell’apprendimento.
+
+Una rete profonda non migliora le prestazioni, ma le peggiora nettamente. Non è causato da un overfitting ma da una semplice difficoltà di ottimizzazione. Le reti utilizzate in questa tesi nascono, con strategie diverse tra loro, per affrontare questo limite.
+
+
+
+
+
+\section{Architetture di estrazione delle feature}
+
+Le architetture utilizzate vengono ora brevemente descritte.
+
+\subsection{ResNet}
+
+ResNet (\textit{Residual Network}), proposta da He et al.~\cite{He_2016_CVPR}, introduce il concetto di \textit{residual learning}, basato sull'utilizzo di connessioni residue (\textit{skip connections}). L'obiettivo è facilitare l'ottimizzazione di reti neurali molto profonde e mitigare il problema della degradazione delle prestazioni che può manifestarsi all'aumentare della profondità della rete.
+
+L'idea alla base di ResNet consiste nel modificare il modo in cui un blocco di layer apprende la trasformazione desiderata. Anziché apprendere direttamente una generica mappatura $H(x)$, il blocco viene addestrato ad apprendere la funzione residua $F(x)$, definita come la differenza tra la mappatura desiderata e l'input del blocco:
+
+\begin{itemize}
+    \item $x$: input del blocco residuo;
+    \item $H(x)$: mappatura desiderata, ovvero la trasformazione che il blocco dovrebbe apprendere;
+    \item $F(x)$: funzione residua appresa dai layer del blocco;
+    \item $y$: output del blocco residuo.
+\end{itemize}
+
+La funzione residua è quindi definita come:
+
+\begin{equation}
+F(x) = H(x) - x
+\end{equation}
+
+da cui segue:
+
+\begin{equation}
+H(x) = F(x) + x
+\end{equation}
+
+L'output del blocco può pertanto essere espresso come:
+
+\begin{equation}
+y = F(x) + x
+\end{equation}
+
+Il termine $x$ viene trasferito direttamente all'uscita mediante una connessione che bypassa uno o più layer del blocco. Tale collegamento prende il nome di \textit{skip connection} e costituisce l'elemento caratterizzante delle architetture ResNet.
+
+La presenza della \textit{skip connection} consente al blocco di apprendere soltanto la trasformazione necessaria rispetto all'input. Nel caso limite in cui la mappatura desiderata sia prossima alla funzione identità, il residuo $F(x)$ tende a essere prossimo a zero. L'output del blocco può quindi essere approssimato come:
+
+\begin{equation}
+y \approx 0 + x = x
+\end{equation}
+
+In questo modo, il blocco non è costretto ad apprendere una trasformazione completa quando questa non è necessaria, ma può concentrarsi sull'apprendimento delle modifiche da apportare all'input per ottenere la rappresentazione desiderata. Questo meccanismo facilita la propagazione dell'informazione attraverso reti profonde e rende più agevole l'ottimizzazione dei parametri durante l'addestramento.

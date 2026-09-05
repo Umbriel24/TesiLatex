@@ -1,0 +1,126 @@
+\documentclass[12pt]{extreport}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{bibliografia/bibliografia.bib}
+
+% -------------------------------------------------
+% FONT: Times New Roman
+% -------------------------------------------------
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+% -------------------------------------------------
+% FORMATTAZIONE DEI CAPITOLI E DELLE SEZIONI
+% -------------------------------------------------
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+    {\normalfont\bfseries\centering\fontsize{18pt}{22pt}\selectfont}
+    {Capitolo \thechapter}
+    {0.5em}
+    {}
+
+\titlespacing*{\chapter}
+    {0pt}
+    {0pt}
+    {20pt}
+
+\titleformat{\section}
+    {\normalfont\bfseries\fontsize{14pt}{17pt}\selectfont}
+    {\thesection}
+    {1em}
+    {}
+    
+% -------------------------------------------------
+% MARGINI
+% -------------------------------------------------
+\usepackage[
+    a4paper,
+    top=3cm,
+    bottom=3cm,
+    left=3cm,
+    right=3cm,
+    headheight=1.5cm,
+    headsep=0cm,
+    footskip=1.5cm
+]{geometry}
+
+% -------------------------------------------------
+% INTERLINEA
+% -------------------------------------------------
+\usepackage{setspace}
+\onehalfspacing
+
+% -------------------------------------------------
+% RIENTRO PARAGRAFI
+% -------------------------------------------------
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{6pt}
+
+% -------------------------------------------------
+% TESTO GIUSTIFICATO
+% -------------------------------------------------
+\usepackage{ragged2e}
+\justifying
+
+
+% -------------------------------------------------
+% NUMERAZIONE PAGINE
+% -------------------------------------------------
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% -------------------------------------------------
+% NOTE A PIÈ DI PAGINA
+% -------------------------------------------------
+\usepackage[bottom]{footmisc}
+
+% Spazio tra il testo principale e la linea delle note
+\setlength{\skip\footins}{15pt}
+
+% Spazio tra la linea e il testo della nota
+\renewcommand{\footnoterule}{%
+    \kern 3pt
+    \hrule width 0.4\columnwidth
+    \kern 6pt
+}
+
+% -------------------------------------------------
+% NOTE: 10 pt
+% -------------------------------------------------
+\makeatletter
+\renewcommand{\footnotesize}{%
+    \fontsize{10pt}{12pt}\selectfont
+}
+\makeatother
+
+% -------------------------------------------------
+% DOCUMENTO
+% -------------------------------------------------
+\begin{document}
+
+% Frontespizio
+\include{frontespizio}
+
+% Indice
+\tableofcontents
+
+
+% Capitoli
+\include{capitoli/capitolo1}
+\include{capitoli/capitolo2}
+\include{capitoli/capitolo3}
+\include{capitoli/capitolo4}
+\include{capitoli/capitolo5}
+
+% Bibliografia
+\printbibliography
+
+
+
+\end{document}
