@@ -4,9 +4,14 @@
 
 Le reti neurali convoluzionali (CNN, \textit{Convolutional Neural Networks}) sono le architetture standard per l’elaborazione dei segnali visivi. Si evolvono rispetto al \textit{Multi-Layer Perceptron} per l’utilizzo di tensori multidimensionali $(H \times W \times C)$, ove $H$ indica l'altezza, $W$ indica la larghezza e $C$ indica il numero di canali. Tale rappresentazione permette di preservare informazioni come le relazioni spaziali tra pixel vicini durante l’elaborazione, attraverso tre principi fondamentali:
 
-L’uso dei campi ricettivi locali (local receptive fields)
-Condivisione dei pesi tra i layer (weight sharing)
-Equivarianza alla traslazione (se l’oggetto si sposta, anche la feature map si sposta)
+\begin{itemize}
+    \item L’uso dei campi ricettivi locali (local receptive fields)
+    \item Condivisione dei pesi tra i layer (weight sharing)
+    \item Equivarianza alla traslazione (se l’oggetto si sposta, anche la feature map si sposta)
+\end{itemize}
+
+
+
 
 Le reti raccolgono informazioni dall’immagine tramite l’utilizzo di filtri chiamati kernel. Questi analizzano una porzione locale di pixel adiacenti alla volta e producono un output associato a quella specifica posizione spaziale. 
 
@@ -58,8 +63,6 @@ Una rete profonda non migliora le prestazioni, ma le peggiora nettamente. Non è
 
 \section{Architetture di estrazione delle feature}
 
-Le architetture utilizzate vengono ora brevemente descritte.
-
 \subsection{ResNet}
 
 ResNet (\textit{Residual Network}), proposta da He et al.~\cite{He_2016_CVPR}, introduce il concetto di \textit{residual learning}, basato sull'utilizzo di connessioni residue (\textit{skip connections}). L'obiettivo è facilitare l'ottimizzazione di reti neurali molto profonde e mitigare il problema della degradazione delle prestazioni che può manifestarsi all'aumentare della profondità della rete.
@@ -100,3 +103,34 @@ y \approx 0 + x = x
 \end{equation}
 
 In questo modo, il blocco non è costretto ad apprendere una trasformazione completa quando questa non è necessaria, ma può concentrarsi sull'apprendimento delle modifiche da apportare all'input per ottenere la rappresentazione desiderata. Questo meccanismo facilita la propagazione dell'informazione attraverso reti profonde e rende più agevole l'ottimizzazione dei parametri durante l'addestramento.
+
+\subsection{Densenet}
+
+Densenet, proposta da Huang et al.~\cite{huang2018denselyconnectedconvolutionalnetworks}, riprende l'idea delle connessioni tra layer introdotta da ResNet, ma la sviluppa in modo più radicale: mentre ResNet collega ogni layer solo al layer immediatamente successivo tramite connessioni residue, in DenseNet ogni layer è connesso a \emph{tutti} i layer successivi all'interno dello stesso blocco (denominato \emph{dense block}).
+
+Concretamente, l'input di ogni layer è dato dalla concatenazione delle feature map prodotte da tutti i layer precedenti nel blocco, anziché dalla sola somma usata da ResNet.
+
+A titolo esemplificativo, supponiamo un blocco formato da 10 layer. Il primo layer riceve l'input del blocco e produce un output $x_1$. Il secondo layer riceve $x_1$ e produce $x_2$. Il terzo layer riceve la concatenazione di $x_1$ e $x_2$, e così via: l'$n$-esimo layer riceve la concatenazione degli output di tutti gli $n-1$ layer precedenti. Questo schema fa sì che il numero di connessioni cresca quadraticamente con la profondità del blocco (per un blocco di $L$ layer si hanno $L(L+1)/2$ connessioni), favorendo il riutilizzo delle feature e mitigando il problema del vanishing gradient.
+
+Formalmente, l'output dell'$\ell$-esimo layer è dato da $x_\ell = H_\ell([x_0, x_1, \dots, x_{\ell-1}])$, dove $[x_0, x_1, \dots, x_{\ell-1}]$ indica la concatenazione delle feature map prodotte dai layer precedenti e $H_\ell$ è una funzione composta (tipicamente Batch Normalization, ReLU e convoluzione). Ogni layer produce un numero fisso di nuove feature map, detto \emph{growth rate} ($k$), che determina quanto rapidamente cresce il numero di canali all'interno del blocco.
+
+Per evitare che questa crescita diventi insostenibile, tra un dense block e il successivo vengono inseriti dei \emph{transition layer}, che riducono sia la risoluzione (tramite pooling) sia il numero di canali (tramite una convoluzione $1\times1$).
+
+\subsection{EfficientNet}
+
+EfficientNet, proposta da Tan e Le~\cite{tan2020efficientnetrethinkingmodelscaling}, nasce con l'obiettivo di massimizzare l'accuracy a parità di budget computazionale. A differenza degli approcci tradizionali, che scalano una sola dimensione della rete (ad esempio aggiungendo layer, oppure aumentando la risoluzione dell'input o semplicemente la profondità della rete), gli autori citati osservano che le tre dimensioni di scaling non sono indipendenti: bilanciarle tutte, contemporaneamente,  produce risultati migliori rispetto a scalarne una sola.
+
+Le tre dimensioni in questione sono:
+\begin{itemize}
+    \item \textbf{Profondità}: numero di layer della rete;
+    \item \textbf{Larghezza}: numero di canali per layer;
+    \item \textbf{Risoluzione}: dimensione dell'immagine in input.
+\end{itemize}
+
+EfficientNet scala queste dimensioni tramite il \emph{compound scaling method}: dato un coefficiente $\phi$ che rappresenta le risorse computazionali disponibili, profondità, larghezza e risoluzione vengono scalate secondo
+\begin{equation}
+    d = \alpha^\phi, \quad w = \beta^\phi, \quad r = \gamma^\phi, \quad \text{con} \quad \alpha \cdot \beta^2 \cdot \gamma^2 \approx 2
+\end{equation}
+
+dove \(\alpha, \beta, \gamma\) sono costanti trovate tramite grid search su un modello base (\emph{EfficientNet-B0}, ottenuto tramite \emph{NAS}, Neural Architecture Search). Queste costanti stabiliscono come ripartire l'aumento di risorse tra le tre dimensioni; è invece il coefficiente $\phi$, scelto dall'utente, a determinare quante risorse complessive si vogliono impiegare. Ogni incremento di $\phi$ porta a un raddoppio approssimativo dei FLOPs della rete (\emph{floating point operations}, il numero di operazioni in virgola mobile richieste per un'inferenza), pari a $2^\phi$.
+\subsection{MLP}

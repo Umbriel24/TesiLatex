@@ -2374,6 +2374,8 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1" intorder="1">He_2016_CVPR</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">huang2018denselyconnectedconvolutionalnetworks</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">tan2020efficientnetrethinkingmodelscaling</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
