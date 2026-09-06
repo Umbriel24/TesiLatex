@@ -8,4 +8,4 @@
 \contentsline {subsection}{\numberline {2.2.1}ResNet}{7}{}%
 \contentsline {subsection}{\numberline {2.2.2}Densenet}{8}{}%
 \contentsline {subsection}{\numberline {2.2.3}EfficientNet}{9}{}%
-\contentsline {subsection}{\numberline {2.2.4}MLP}{10}{}%
+\contentsline {section}{\numberline {2.3}Confronto tra le architetture}{10}{}%
