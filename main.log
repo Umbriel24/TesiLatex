@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.9.5)  6 SEP 2026 16:19
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.9.5)  6 SEP 2026 21:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -472,7 +472,7 @@ Package footmisc Info: Declaring symbol style lamport*-robust on input line 618.
 )
 \@quotelevel=\count436
 \@quotereset=\count437
- (./main.aux (./frontespizio.aux) (./capitoli/capitolo1.aux) (./capitoli/capitolo2.aux) (./capitoli/capitolo3.aux) (./capitoli/capitolo4.aux) (./capitoli/capitolo5.aux))
+ (./main.aux (./frontespizio.aux) (./capitoli/capitolo1.aux) (./capitoli/capitolo2.aux) (./capitoli/capitolo3.aux) (./capitoli/capitolo4.aux) (./capitoli/capitolo5.aux) (./capitoli/capitolo6.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
@@ -646,35 +646,55 @@ Overfull \hbox (1.97147pt too wide) in paragraph at lines 135--136
  []
 
 [9]
-Overfull \hbox (18.186pt too wide) in paragraph at lines 144--145
-[]\TU/TimesNewRoman(0)/b/n/12 EfficientNet\TU/TimesNewRoman(0)/m/n/12 : si concentra e ottimizza il bvilancio tra profondità, larghezza e risoluzione
+Overfull \hbox (12.186pt too wide) in paragraph at lines 144--145
+[]\TU/TimesNewRoman(0)/b/n/12 EfficientNet\TU/TimesNewRoman(0)/m/n/12 : si concentra e ottimizza il bilancio tra profondità, larghezza e risoluzione
  []
 
 ) [10]
 \openout2 = `capitoli/capitolo3.aux'.
 
+ (./capitoli/capitolo3.tex
+Chapter 3.
+) [11
 
-No file capitoli/capitolo3.tex.
+
+
+
+]
 \openout2 = `capitoli/capitolo4.aux'.
 
-No file capitoli/capitolo4.tex.
+ (./capitoli/capitolo4.tex
+Chapter 4.
+) [12
+
+
+
+
+]
 \openout2 = `capitoli/capitolo5.aux'.
 
-No file capitoli/capitolo5.tex.
-[11
+ (./capitoli/capitolo5.tex
+Chapter 5.
+) [13
 
 
 
 
+]
+\openout2 = `capitoli/capitolo6.aux'.
+
+ (./capitoli/capitolo6.tex
+Chapter 6.
+) [14
 
 
 
 
+] [15
 
 
 
-
-] (./main.aux (./frontespizio.aux) (./capitoli/capitolo1.aux) (./capitoli/capitolo2.aux) (./capitoli/capitolo3.aux) (./capitoli/capitolo4.aux) (./capitoli/capitolo5.aux))
+] (./main.aux (./frontespizio.aux) (./capitoli/capitolo1.aux) (./capitoli/capitolo2.aux) (./capitoli/capitolo3.aux) (./capitoli/capitolo4.aux) (./capitoli/capitolo5.aux) (./capitoli/capitolo6.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -684,12 +704,12 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 13471 strings out of 470217
- 297234 string characters out of 5480475
- 1195952 words of memory out of 5000000
- 41885 multiletter control sequences out of 15000+600000
+ 13505 strings out of 470217
+ 298329 string characters out of 5480475
+ 1198312 words of memory out of 5000000
+ 41906 multiletter control sequences out of 15000+600000
  631307 words of font info for 74 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,93p,796b,4852s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 60i,12n,93p,796b,4850s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (11 pages).
+Output written on main.pdf (15 pages).

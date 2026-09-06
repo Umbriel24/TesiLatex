@@ -9,3 +9,7 @@
 \contentsline {subsection}{\numberline {2.2.2}Densenet}{8}{}%
 \contentsline {subsection}{\numberline {2.2.3}EfficientNet}{9}{}%
 \contentsline {section}{\numberline {2.3}Confronto tra le architetture}{10}{}%
+\contentsline {chapter}{\numberline {3}Progettazione pipeline di training}{11}{}%
+\contentsline {chapter}{\numberline {4}Valutazione sperimentale delle architetture su dropout macro e micro}{12}{}%
+\contentsline {chapter}{\numberline {5}Recupero classi non viste tramite prototypical netwoprks}{13}{}%
+\contentsline {chapter}{\numberline {6}Conclusione e sviluppi futuri}{14}{}%
