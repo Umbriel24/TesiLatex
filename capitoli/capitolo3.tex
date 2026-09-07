@@ -75,27 +75,46 @@ che garantisce il determinismo dell'intera pipeline.
 
 \subsection{Early stopping}
 
-Il training è monitorato a ogni epoca, valutando la loss totale $\mathcal{L}_{\text{tot}}$ (calcolata con gli stessi coefficienti $\alpha$ e $\beta$ definiti in Sezione~\ref{chapter:3.2}) sul set di validazione. È adottato un criterio di \emph{early stopping} con pazienza pari a 6 epoche: se la loss di validazione non migliora per 6 epoche consecutive, l'addestramento viene interrotto anticipatamente.
+Il training è monitorato a ogni epoca, valutando la loss totale $\mathcal{L}_{\text{tot}}$ (calcolata con gli stessi coefficienti $\alpha$ e $\beta$ definiti in Sezione~\ref{chapter:3.2}) sul set di validazione. 
+È adottato un criterio di \emph{early stopping} con un 'valore' di pazienza pari a 6 epoche: se la loss di validazione non migliora per 6 epoche consecutive, 
+l'addestramento viene interrotto anticipatamente, salvando il modello.
 
 \section{Degradazione controllata del training set}
 
-Per studiare la robustezza delle architetture a diverse forme di perdita di informazione, è stata implementata una procedura di degradazione controllata del training set, articolata in due meccanismi indipendenti: \emph{macro\_drop} e \emph{micro\_drop}. Entrambi sono applicati esclusivamente al training set, lasciando gli insiemi di validazione e test sempre integri. Le percentuali di degradazione applicate vanno dallo 0\% al 40\%, con incrementi del 5\%, e l'intera procedura è governata dal seed fisso descritto in Sezione~\ref{sec:procedura-training}, che garantisce la riproducibilità esatta dei sottoinsiemi generati.
+Per studiare la robustezza delle architetture a diverse forme di perdita di informazione, 
+è stata implementata una procedura di degradazione controllata del training set, articolata in due meccanismi indipendenti: \emph{macro\_drop} e \emph{micro\_drop}. 
+Entrambi sono applicati esclusivamente al training set, lasciando i set di validazione e test sempre integri. 
+Le percentuali di degradazione applicate vanno dallo 0\% al 40\%, con incrementi del 5\%, e l'intera procedura è 'determinata' dal seed fisso descritto in Sezione~\ref{sec:procedura-training}, 
+che garantisce la riproducibilità esatta\footnote{"L'esperimento si può riprodurre molteplici volte, con risultato analogo grazie al determinismo di un seed inserito come parametro} dei sottoinsiemi generati.
 
 \subsection*{Macro drop}
 
-Il \emph{macro\_drop} simula una condizione di scarsità di dati, riducendo il numero di campioni disponibili senza mai eliminare classi. La rimozione è stratificata per classe: per ogni classe viene rimossa la medesima quantità proporzionale di campioni; eventuali resti derivanti da arrotondamento vengono distribuiti in modo che alcune classi perdano un campione in più o in meno rispetto alle altre. Tutte le classi restano quindi rappresentate nel training set, con un numero di esempi ridotto. Poiché la rimozione avviene sull'intero dataset, il macro\_drop impatta contemporaneamente entrambe le head del modello.
+Il \emph{macro\_drop} simula una condizione di scarsità di dati, riducendo il numero di campioni disponibili senza mai eliminare interamente le classi. 
+La rimozione è stratificata per classe: per ogni classe viene rimossa la medesima quantità proporzionale di campioni; eventuali resti derivanti da arrotondamento vengono distribuiti in modo che alcune classi perdano 
+un campione in più o in meno rispetto alle altre. 
+
+Tutte le classi restano quindi rappresentate nel training set, con un numero di esempi ridotto. Poiché la rimozione avviene sull'intero dataset, il macro\_drop impatta contemporaneamente entrambe le head del modello.
 
 \subsection*{Micro drop}
 
-Il \emph{micro\_drop} simula invece la comparsa di classi mai osservate in training. A ogni percentuale di degradazione, un sottoinsieme di classi (razze per Oxford-IIIT Pet, classi \emph{fine} per CIFAR-100) viene selezionato casualmente ed eliminato per intero dal training set: tutti i campioni appartenenti a quelle classi vengono rimossi, senza lasciare esempi residui. La selezione delle classi da rimuovere è puramente casuale, governata dal seed fisso; non è previsto alcun meccanismo di campionamento pesato tra le categorie di livello superiore (ad esempio specie, per Oxford-IIIT Pet). Uno sbilanciamento nelle classi rimosse rispetto alla loro categoria di appartenenza è quindi un possibile esito del campionamento casuale sull'insieme delle classi disponibili, non una regola imposta dalla procedura.
+Il \emph{micro\_drop} simula invece la scomparsa intere classi durante il training. A ogni percentuale di degradazione, un sottoinsieme di classi (razze per Oxford-IIIT Pet, classi \emph{fine} per CIFAR-100) 
+viene selezionato casualmente ed eliminato per intero dal training set: tutti i campioni appartenenti a quelle classi vengono rimossi, senza lasciare esempi residui. 
 
-Ad esempio, con \texttt{micro\_drop} al 20\% su Oxford-IIIT Pet, applicato con seed \texttt{777}, sono state rimosse 4 razze su 37: \emph{Wheaten Terrier}, \emph{English Cocker Spaniel}, \emph{English Setter} (razze canine) e \emph{Bombay} (razza felina). Questo risultato riflette sia la casualità dell'estrazione, sia lo sbilanciamento intrinseco del dataset tra le due specie (25 razze canine contro 12 feline).
+La selezione delle classi da rimuovere è puramente casuale, governata dal seed fisso; non è previsto alcun meccanismo di campionamento pesato tra le categorie di livello superiore (ad esempio specie, per Oxford-IIIT Pet). 
+
+Uno sbilanciamento nelle classi rimosse rispetto alla loro categoria di appartenenza è quindi un possibile esito del campionamento casuale sull'insieme delle classi disponibili, non una regola imposta dalla procedura.
+
+Ad esempio, con \texttt{micro\_drop} al 20\% su Oxford-IIIT Pet, applicato con seed \texttt{777}, sono state rimosse 4 razze su 37: 
+\emph{Wheaten Terrier}, \emph{English Cocker Spaniel}, \emph{English Setter} (razze canine) e \emph{Bombay} (razza felina). 
+Questo risultato riflette sia la casualità dell'estrazione, sia lo sbilanciamento intrinseco del dataset tra le due specie (25 razze canine contro 12 feline).
 
 La head relativa al task coarse (macro, ovvero specie o superclasse) continua ad allenarsi regolarmente sui campioni delle classi superstiti, poiché la rimozione riguarda esclusivamente le etichette del task fine-grained (micro).
 
 \subsection*{Effetto sulla valutazione}
 
-Indipendentemente dal tipo e dall'entità della degradazione applicata in training, la valutazione finale è sempre condotta sull'insieme completo delle classi (37 per Oxford-IIIT Pet, 100 per CIFAR-100). Con il micro\_drop, questo significa che il modello viene valutato anche su classi che non ha mai osservato durante l'addestramento — condizione che ha conseguenze dirette sulle metriche di valutazione, discusse nella Sezione~\ref{sec:metriche-valutazione}.
+Indipendentemente dal tipo e dall'entità della degradazione applicata in training, la valutazione finale è sempre condotta sull'insieme completo delle classi (37 per Oxford-IIIT Pet, 100 per CIFAR-100). 
+Con il micro\_drop, questo significa che il modello viene valutato anche su classi che non ha mai osservato durante l'addestramento. Tale condizione ha conseguenze dirette sulle metriche di valutazione, 
+discusse nella Sezione~\ref{sec:metriche-valutazione}.
 
 \section{Metriche di valutazione}
 \label{sec:metriche-valutazione}
