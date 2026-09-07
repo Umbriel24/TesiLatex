@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.9.5)  7 SEP 2026 15:13
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.9.5)  7 SEP 2026 15:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -708,12 +708,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Overfull \hbox (17.64569pt too wide) in paragraph at lines 30--31
+Overfull \hbox (17.64569pt too wide) in paragraph at lines 31--32
 \TU/TimesNewRoman(0)/m/n/12 anti come backbone per gli esperimenti: \TU/TimesNewRoman(0)/b/n/12 ResNet18\TU/TimesNewRoman(0)/m/n/12 , \TU/TimesNewRoman(0)/b/n/12 ResNet50\TU/TimesNewRoman(0)/m/n/12 , \TU/TimesNewRoman(0)/b/n/12 DenseNet121 \TU/TimesNewRoman(0)/m/n/12 ed \TU/TimesNewRoman(0)/b/n/12 EfficientNet-
  []
 
 
-Overfull \hbox (0.90201pt too wide) in paragraph at lines 32--33
+Overfull \hbox (0.90201pt too wide) in paragraph at lines 33--34
 []\TU/TimesNewRoman(0)/m/n/12 L'integrazione del task multi-label sui backbone descritti nel capitolo 2.2[] segue uno schema
  []
 
@@ -728,16 +728,28 @@ Font mapping `tex-text.tec' for font `Times New Roman' not found.
 Font mapping `tex-text.tec' for font `Times New Roman' not found.
 Font mapping `tex-text.tec' for font `Times New Roman Italic' not found.
 
-Overfull \hbox (34.44676pt too wide) in paragraph at lines 45--46
+Overfull \hbox (34.44676pt too wide) in paragraph at lines 46--47
 []\TU/TimesNewRoman(0)/m/n/12 Le due head sono costituite da un singolo layer lineare (\TU/lmtt/m/n/12 Linear(feature_dim, num_classes)\TU/TimesNewRoman(0)/m/n/12 ).
  []
 
-) [13]
+[13] [14]
+Overfull \hbox (10.90901pt too wide) in paragraph at lines 92--93
+\TU/TimesNewRoman(0)/m/n/12 (razze canine) e \TU/TimesNewRoman(0)/m/it/12 Bombay \TU/TimesNewRoman(0)/m/n/12 (razza felina). Questo risultato riflette sia la casualità dell'estrazione,
+ []
+
+
+LaTeX Warning: Reference `sec:metriche-valutazione' on page 15 undefined on input line 98.
+
+[15]
+
+LaTeX Warning: Reference `sec:metriche-valutazione' on page 16 undefined on input line 101.
+
+) [16]
 \openout2 = `capitoli/capitolo4.aux'.
 
  (./capitoli/capitolo4.tex
 Chapter 4.
-) [14
+) [17
 
 
 
@@ -747,7 +759,7 @@ Chapter 4.
 
  (./capitoli/capitolo5.tex
 Chapter 5.
-) [15
+) [18
 
 
 
@@ -757,12 +769,12 @@ Chapter 5.
 
  (./capitoli/capitolo6.tex
 Chapter 6.
-) [16
+) [19
 
 
 
 
-] [17
+] [20
 
 
 
@@ -771,17 +783,21 @@ Chapter 6.
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 15311 strings out of 470217
- 331350 string characters out of 5480475
- 1255201 words of memory out of 5000000
- 43696 multiletter control sequences out of 15000+600000
+ 15314 strings out of 470217
+ 331413 string characters out of 5480475
+ 1255313 words of memory out of 5000000
+ 43699 multiletter control sequences out of 15000+600000
  631793 words of font info for 80 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,93p,1032b,4860s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 60i,12n,93p,1032b,4858s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (17 pages).
+Output written on main.pdf (20 pages).

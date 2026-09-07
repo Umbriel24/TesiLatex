@@ -13,17 +13,21 @@
 \contentsline {section}{\numberline {3.1}Dataset e task}{12}{}%
 \contentsline {section}{\numberline {3.2}Architettura multi-task}{12}{}%
 \contentsline {section}{\numberline {3.3}Procedura di training dei modelli}{13}{}%
-\contentsline {section}{\numberline {3.4}Degradazione controllata del training set}{13}{}%
-\contentsline {section}{\numberline {3.5}Metriche di valutazione}{13}{}%
-\contentsline {chapter}{\numberline {4}Risultati e discussione}{14}{}%
-\contentsline {section}{\numberline {4.1}Risultati Dataset Oxford-IIIT Pet}{14}{}%
-\contentsline {section}{\numberline {4.2}Risultati Dataset CIFAR-100}{14}{}%
-\contentsline {section}{\numberline {4.3}Discussione sui risultati ottenuti}{14}{}%
-\contentsline {chapter}{\numberline {5}Approccio prototypical network}{15}{}%
-\contentsline {section}{\numberline {5.1}Motivazione: il problema delle classi non viste}{15}{}%
-\contentsline {section}{\numberline {5.2}Prototypical network: principio di funzionamento}{15}{}%
-\contentsline {section}{\numberline {5.3}Setup e campionamento}{15}{}%
-\contentsline {section}{\numberline {5.4}Risultati ottenuti e discussione}{15}{}%
-\contentsline {chapter}{\numberline {6}Conclusione e sviluppi futuri}{16}{}%
-\contentsline {section}{\numberline {6.1}Sintesi e limiti dello studio}{16}{}%
-\contentsline {section}{\numberline {6.2}Sviluppi futuri}{16}{}%
+\contentsline {subsection}{\numberline {3.3.1}Regime di addestramento}{13}{}%
+\contentsline {subsection}{\numberline {3.3.2}Ottimizzazione}{14}{}%
+\contentsline {subsection}{\numberline {3.3.3}Trasformazioni sui dati}{14}{}%
+\contentsline {subsection}{\numberline {3.3.4}Early stopping}{14}{}%
+\contentsline {section}{\numberline {3.4}Degradazione controllata del training set}{14}{}%
+\contentsline {section}{\numberline {3.5}Metriche di valutazione}{16}{}%
+\contentsline {chapter}{\numberline {4}Risultati e discussione}{17}{}%
+\contentsline {section}{\numberline {4.1}Risultati Dataset Oxford-IIIT Pet}{17}{}%
+\contentsline {section}{\numberline {4.2}Risultati Dataset CIFAR-100}{17}{}%
+\contentsline {section}{\numberline {4.3}Discussione sui risultati ottenuti}{17}{}%
+\contentsline {chapter}{\numberline {5}Approccio prototypical network}{18}{}%
+\contentsline {section}{\numberline {5.1}Motivazione: il problema delle classi non viste}{18}{}%
+\contentsline {section}{\numberline {5.2}Prototypical network: principio di funzionamento}{18}{}%
+\contentsline {section}{\numberline {5.3}Setup e campionamento}{18}{}%
+\contentsline {section}{\numberline {5.4}Risultati ottenuti e discussione}{18}{}%
+\contentsline {chapter}{\numberline {6}Conclusione e sviluppi futuri}{19}{}%
+\contentsline {section}{\numberline {6.1}Sintesi e limiti dello studio}{19}{}%
+\contentsline {section}{\numberline {6.2}Sviluppi futuri}{19}{}%
