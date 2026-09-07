@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.9.5)  7 SEP 2026 15:52
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.9.5)  7 SEP 2026 16:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -737,14 +737,7 @@ Overfull \hbox (10.90901pt too wide) in paragraph at lines 92--93
 \TU/TimesNewRoman(0)/m/n/12 (razze canine) e \TU/TimesNewRoman(0)/m/it/12 Bombay \TU/TimesNewRoman(0)/m/n/12 (razza felina). Questo risultato riflette sia la casualità dell'estrazione,
  []
 
-
-LaTeX Warning: Reference `sec:metriche-valutazione' on page 15 undefined on input line 98.
-
-[15]
-
-LaTeX Warning: Reference `sec:metriche-valutazione' on page 16 undefined on input line 101.
-
-) [16]
+[15]) [16]
 \openout2 = `capitoli/capitolo4.aux'.
 
  (./capitoli/capitolo4.tex
@@ -783,10 +776,6 @@ Chapter 6.
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
@@ -794,7 +783,7 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 Here is how much of TeX's memory you used:
  15314 strings out of 470217
  331413 string characters out of 5480475
- 1255313 words of memory out of 5000000
+ 1255364 words of memory out of 5000000
  43699 multiletter control sequences out of 15000+600000
  631793 words of font info for 80 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191

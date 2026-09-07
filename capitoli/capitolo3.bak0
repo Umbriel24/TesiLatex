@@ -2,27 +2,27 @@
 
 \section{Dataset e task}
 
-Per realizzare la tesi sono stati utilizzati due dataset:
+Per realizzare la tesi sono stati utilizzati due dataset: 
 
 \begin{itemize}
-	\item \emph{Oxford-IIIT Pet}~\cite{parkhi12a}, composto da immagini di cani e gatti suddivise in 37 classi.
-	      Il dataset comprende un file di annotazione che associa ad ogni immagine una tupla
-	      (\texttt{image\_path, micro\_label e macro\_label}), ove:
+    \item \emph{Oxford-IIIT Pet}~\cite{parkhi12a}, composto da immagini di cani e gatti suddivise in 37 classi. 
+            Il dataset comprende un file di annotazione che associa ad ogni immagine una tupla
+            (\texttt{image\_path, micro\_label e macro\_label}), ove:
 
-	      \begin{itemize}
-		      \item \texttt{micro\_label} identifica la razza tra le 37 disponibili;
-		      \item \texttt{macro\_label} identifica la specie, ovvero cane o gatto.
-	      \end{itemize}
+            \begin{itemize}
+                \item \texttt{micro\_label} identifica la razza tra le 37 disponibili;
+                \item \texttt{macro\_label} identifica la specie, ovvero cane o gatto.
+            \end{itemize}
 
-	      Il dataset è diviso in tre sottoinsiemi: training (70\%), validazione (15\%) e test (15\%).
-	      La suddivisione è realizzata tramite uno split in modo da preservare la distribuzione equa delle 37 classi.
-	\item \emph{CIFAR-100}~\cite{krizhevsky2009learning}, composto da 100 classi raggrupate in 20 superclassi.
-	      Ogni superclasse comprende 5 classi, per un totale di 100 fine label. Per contenere il costo
-	      computazionale degli esperimenti, è stato estratto inizialmente un sottoinsieme di 50 campioni per ciascuna classe.
-	      Successivamente la quantità è stata aumentata a 200 campioni per classe, poiché la quantità iniziale produceva un risultato
-	      caratterizzato da variabilità e rumore.
-
-	      Il campionamento è stato effettuato prima della suddisivione stratificata del dataset, secondo la proporzione 70\%/15\%/15\% tra training, validation e test.
+            Il dataset è diviso in tre sottoinsiemi: training (70\%), validazione (15\%) e test (15\%).
+            La suddivisione è realizzata tramite uno split in modo da preservare la distribuzione equa delle 37 classi.
+    \item \emph{CIFAR-100}~\cite{krizhevsky2009learning}, composto da 100 classi raggrupate in 20 superclassi. 
+    Ogni superclasse comprende 5 classi, per un totale di 100 fine label. Per contenere il costo
+    computazionale degli esperimenti, è stato estratto inizialmente un sottoinsieme di 50 campioni per ciascuna classe.
+    Successivamente la quantità è stata aumentata a 200 campioni per classe, poiché la quantità iniziale produceva un risultato
+    caratterizzato da variabilità e rumore.
+    
+    Il campionamento è stato effettuato prima della suddisivione stratificata del dataset, secondo la proporzione 70\%/15\%/15\% tra training, validation e test.
 \end{itemize}
 
 \section{Architettura multi-task}
@@ -35,10 +35,10 @@ L'integrazione del task multi-label sui backbone descritti nel capitolo~\ref{cha
 Il backbone elabora l'immagine fino al GAP\footnote{GAP: \emph{Global Average Pooling}. Operazione applicata al termine del backbone che riduce ciascuna mappa di feature a un singolo valore medio, trasformando così il volume di feature tridimensionale in un vettore monodimensionale utilizzabile dalle head di classificazione.}, producendo un vettore di embedding la cui dimensione dipende dall'architettura:
 
 \begin{itemize}
-	\item 512 per ResNet18;
-	\item 2048 per ResNet50;
-	\item 1024 per DenseNet121;
-	\item 1280 per EfficientNet-B0.
+    \item 512 per ResNet18;
+    \item 2048 per ResNet50;
+    \item 1024 per DenseNet121;
+    \item 1280 per EfficientNet-B0.
 \end{itemize}
 
 Questo vettore è utilizzato in parallelo da entrambe le head.
@@ -48,7 +48,7 @@ Le due head sono costituite da un singolo layer lineare (\texttt{Linear(feature\
 La funzione di loss è una combinazione pesata delle due cross-entropy, tramite i coefficienti $\alpha$ e $\beta$:
 
 \begin{equation}
-	\mathcal{L}_{\text{tot}} = \alpha \cdot \mathcal{L}_{\text{micro}} + \beta \cdot \mathcal{L}_{\text{macro}}
+    \mathcal{L}_{\text{tot}} = \alpha \cdot \mathcal{L}_{\text{micro}} + \beta \cdot \mathcal{L}_{\text{macro}}
 \end{equation}
 
 con $\alpha = 1.0$ e $\beta = 0.5$: il task fine-grained (micro) pesa dunque il doppio rispetto al task coarse (macro) nella loss totale.
@@ -57,7 +57,7 @@ con $\alpha = 1.0$ e $\beta = 0.5$: il task fine-grained (micro) pesa dunque il 
 
 \subsection{Regime di addestramento}
 
-Tutti i backbone sono inizializzati con i pesi pre-addestrati su ImageNet (\texttt{PRETRAINED = True}). L'addestramento è condotto in modalità \emph{full fine-tuning}: tutti i parametri del backbone rimangono aggiornabili, insieme a quelli delle due head, anziché congelare il backbone e allenare solo le teste (\emph{feature extraction}).
+Tutti i backbone sono inizializzati con i pesi pre-addestrati su ImageNet (\texttt{PRETRAINED = True}). L'addestramento è condotto in modalità \emph{full fine-tuning}: tutti i parametri del backbone rimangono aggiornabili, insieme a quelli delle due head, anziché congelare il backbone e allenare solo le teste (\emph{feature extraction}). 
 Il backbone adatta così i propri filtri  alle caratteristiche peculiari del dataset, invece di limitarsi alla feature generiche di ImageNet.
 
 \subsection{Ottimizzazione}
@@ -70,7 +70,7 @@ Tutte le immagini sono ridimensionate a $224 \times 224$ pixel e normalizzate se
 
 Nel set di training, all'immagine ridimensionata è applicato un \emph{random horizontal flip} con probabilità $p = 0.5$, come unica forma di data augmentation. Nei set di validazione e test non è applicata alcuna trasformazione stocastica: le immagini sono unicamente ridimensionate e normalizzate, per garantire una valutazione deterministica e riproducibile.
 
-Tutte le operazioni stocastiche (suddivisione del dataset, degradazione controllata, augmentation) sono governate da un unico seed fisso (\texttt{SEED = 777}),
+Tutte le operazioni stocastiche (suddivisione del dataset, degradazione controllata, augmentation) sono governate da un unico seed fisso (\texttt{SEED = 777}), 
 che garantisce il determinismo dell'intera pipeline.
 
 \subsection{Early stopping}
