@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.9.5)  6 SEP 2026 21:26
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.9.5)  7 SEP 2026 15:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -355,24 +355,49 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \mathdisplay@stack=\toks22
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
+) (/usr/share/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2026/03/01 v3.2d Micro-typographical refinements (RS)
+\MT@toks=\toks23
+\MT@tempbox=\box55
+\MT@count=\count422
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1084.
+LaTeX Info: Redefining \leftprotrusion on input line 1085.
+\MT@prot@toks=\toks24
+LaTeX Info: Redefining \rightprotrusion on input line 1104.
+LaTeX Info: Redefining \textls on input line 1449.
+\MT@outer@kern=\dimen159
+LaTeX Info: Redefining \microtypecontext on input line 2053.
+LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
+\MT@listname@count=\count423
+ (/usr/share/texmf-dist/tex/latex/microtype/microtype-xetex.def
+File: microtype-xetex.def 2026/03/01 v3.2d Definitions specific to xetex (RS)
+LaTeX Info: Redefining \lsstyle on input line 443.
+LaTeX Info: Redefining \lslig on input line 451.
+\MT@outer@space=\skip76
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+ (/usr/share/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2026/03/01 v3.2d microtype main configuration file (RS)
+)
+LaTeX Info: Redefining \microtypesetup on input line 3065.
 ) (/usr/share/texmf-dist/tex/latex/fontspec/fontspec.sty
 Package: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
  (/usr/share/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
 Package: fontspec-xetex 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
-\l__fontspec_script_int=\count422
-\l__fontspec_language_int=\count423
-\l__fontspec_strnum_int=\count424
-\l__fontspec_tmp_int=\count425
-\l__fontspec_tmpa_int=\count426
-\l__fontspec_tmpb_int=\count427
-\l__fontspec_tmpc_int=\count428
-\l__fontspec_em_int=\count429
-\l__fontspec_emdef_int=\count430
-\l__fontspec_strong_int=\count431
-\l__fontspec_strongdef_int=\count432
-\l__fontspec_tmpa_dim=\dimen159
-\l__fontspec_tmpb_dim=\dimen160
-\l__fontspec_tmpc_dim=\dimen161
+\l__fontspec_script_int=\count424
+\l__fontspec_language_int=\count425
+\l__fontspec_strnum_int=\count426
+\l__fontspec_tmp_int=\count427
+\l__fontspec_tmpa_int=\count428
+\l__fontspec_tmpb_int=\count429
+\l__fontspec_tmpc_int=\count430
+\l__fontspec_em_int=\count431
+\l__fontspec_emdef_int=\count432
+\l__fontspec_strong_int=\count433
+\l__fontspec_strongdef_int=\count434
+\l__fontspec_tmpa_dim=\dimen160
+\l__fontspec_tmpb_dim=\dimen161
+\l__fontspec_tmpc_dim=\dimen162
  (/usr/share/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
 ) (/usr/share/texmf-dist/tex/latex/fontspec/fontspec.cfg)
@@ -398,71 +423,71 @@ Package fontspec Info:
 Font mapping `tex-text.tec' for font `Times New Roman' not found.
  (/usr/share/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
-\ttl@box=\box55
-\beforetitleunit=\skip76
-\aftertitleunit=\skip77
-\ttl@plus=\dimen162
-\ttl@minus=\dimen163
-\ttl@toksa=\toks23
-\titlewidth=\dimen164
-\titlewidthlast=\dimen165
-\titlewidthfirst=\dimen166
+\ttl@box=\box56
+\beforetitleunit=\skip77
+\aftertitleunit=\skip78
+\ttl@plus=\dimen163
+\ttl@minus=\dimen164
+\ttl@toksa=\toks25
+\titlewidth=\dimen165
+\titlewidthlast=\dimen166
+\titlewidthfirst=\dimen167
 ) (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count433
-\Gm@cntv=\count434
-\c@Gm@tempcnt=\count435
-\Gm@bindingoffset=\dimen167
-\Gm@wd@mp=\dimen168
-\Gm@odd@mp=\dimen169
-\Gm@even@mp=\dimen170
-\Gm@layoutwidth=\dimen171
-\Gm@layoutheight=\dimen172
-\Gm@layouthoffset=\dimen173
-\Gm@layoutvoffset=\dimen174
-\Gm@dimlist=\toks24
+\Gm@cnth=\count435
+\Gm@cntv=\count436
+\c@Gm@tempcnt=\count437
+\Gm@bindingoffset=\dimen168
+\Gm@wd@mp=\dimen169
+\Gm@odd@mp=\dimen170
+\Gm@even@mp=\dimen171
+\Gm@layoutwidth=\dimen172
+\Gm@layoutheight=\dimen173
+\Gm@layouthoffset=\dimen174
+\Gm@layoutvoffset=\dimen175
+\Gm@dimlist=\toks26
 ) (/usr/share/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
 ) (/usr/share/texmf-dist/tex/latex/ragged2e/ragged2e.sty
 Package: ragged2e 2023/06/22 v3.6 ragged2e Package
-\CenteringLeftskip=\skip78
-\RaggedLeftLeftskip=\skip79
-\RaggedRightLeftskip=\skip80
-\CenteringRightskip=\skip81
-\RaggedLeftRightskip=\skip82
-\RaggedRightRightskip=\skip83
-\CenteringParfillskip=\skip84
-\RaggedLeftParfillskip=\skip85
-\RaggedRightParfillskip=\skip86
-\JustifyingParfillskip=\skip87
-\CenteringParindent=\skip88
-\RaggedLeftParindent=\skip89
-\RaggedRightParindent=\skip90
-\JustifyingParindent=\skip91
+\CenteringLeftskip=\skip79
+\RaggedLeftLeftskip=\skip80
+\RaggedRightLeftskip=\skip81
+\CenteringRightskip=\skip82
+\RaggedLeftRightskip=\skip83
+\RaggedRightRightskip=\skip84
+\CenteringParfillskip=\skip85
+\RaggedLeftParfillskip=\skip86
+\RaggedRightParfillskip=\skip87
+\JustifyingParfillskip=\skip88
+\CenteringParindent=\skip89
+\RaggedLeftParindent=\skip90
+\RaggedRightParindent=\skip91
+\JustifyingParindent=\skip92
 ) (/usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
-\f@nch@headwidth=\skip92
-\f@nch@offset@elh=\skip93
-\f@nch@offset@erh=\skip94
-\f@nch@offset@olh=\skip95
-\f@nch@offset@orh=\skip96
-\f@nch@offset@elf=\skip97
-\f@nch@offset@erf=\skip98
-\f@nch@offset@olf=\skip99
-\f@nch@offset@orf=\skip100
-\f@nch@height=\skip101
-\f@nch@footalignment=\skip102
-\f@nch@widthL=\skip103
-\f@nch@widthC=\skip104
-\f@nch@widthR=\skip105
-\@temptokenb=\toks25
+\f@nch@headwidth=\skip93
+\f@nch@offset@elh=\skip94
+\f@nch@offset@erh=\skip95
+\f@nch@offset@olh=\skip96
+\f@nch@offset@orh=\skip97
+\f@nch@offset@elf=\skip98
+\f@nch@offset@erf=\skip99
+\f@nch@offset@olf=\skip100
+\f@nch@offset@orf=\skip101
+\f@nch@height=\skip102
+\f@nch@footalignment=\skip103
+\f@nch@widthL=\skip104
+\f@nch@widthC=\skip105
+\f@nch@widthR=\skip106
+\@temptokenb=\toks27
 ) (/usr/share/texmf-dist/tex/latex/footmisc/footmisc.sty
 Package: footmisc 2025/05/09 v7.0b a miscellany of footnote facilities
-\FN@temptoken=\toks26
-\footnotemargin=\dimen175
+\FN@temptoken=\toks28
+\footnotemargin=\dimen176
 Package footmisc Info: Declaring symbol style bringhurst on input line 549.
 Package footmisc Info: Declaring symbol style chicago on input line 557.
 Package footmisc Info: Declaring symbol style wiley on input line 566.
@@ -470,27 +495,27 @@ Package footmisc Info: Declaring symbol style lamport-robust on input line 577.
 Package footmisc Info: Declaring symbol style lamport* on input line 597.
 Package footmisc Info: Declaring symbol style lamport*-robust on input line 618.
 )
-\@quotelevel=\count436
-\@quotereset=\count437
+\@quotelevel=\count438
+\@quotereset=\count439
  (./main.aux (./frontespizio.aux) (./capitoli/capitolo1.aux) (./capitoli/capitolo2.aux) (./capitoli/capitolo3.aux) (./capitoli/capitolo4.aux) (./capitoli/capitolo5.aux) (./capitoli/capitolo6.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
  (/usr/share/texmf-dist/tex/latex/biblatex/lbx/english.lbx
@@ -505,8 +530,24 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 106.
-Package biblatex Info: Reference segment=0 on input line 106.
+Package biblatex Info: Reference section=0 on input line 108.
+Package biblatex Info: Reference segment=0 on input line 108.
+LaTeX Info: Redefining \microtypecontext on input line 108.
+Package microtype Info: Applying patch `item' on input line 108.
+Package microtype Info: Applying patch `toc' on input line 108.
+Package microtype Info: Applying patch `eqnum' on input line 108.
+Package microtype Info: Applying patch `footnote' on input line 108.
+Package microtype Info: Applying patch `verbatim' on input line 108.
+LaTeX Info: Redefining \microtypesetup on input line 108.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of spacing.
+Package microtype Info: No adjustment of kerning.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `TimesNewRoman' (encoding: TU).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 
 Package fontspec Info: 
 (fontspec)             Adjusting the maths setup (use [no-math] to avoid
@@ -514,56 +555,56 @@ Package fontspec Info:
 
 \symlegacymaths=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 106.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 106.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 106.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 106.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 106.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 106.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 106.
-LaTeX Font Info:    Redeclaring math accent \check on input line 106.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 106.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 106.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 106.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 106.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 106.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 108.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 108.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 108.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 108.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 108.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 108.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 108.
+LaTeX Font Info:    Redeclaring math accent \check on input line 108.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 108.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 108.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 108.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 108.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 108.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 106.
+(Font)              `operators' in the math version `normal' on input line 108.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/TimesNewRoman(0)/m/n on input line 106.
+(Font)                  OT1/cmr/m/n --> TU/TimesNewRoman(0)/m/n on input line 108.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 106.
+(Font)              `operators' in the math version `bold' on input line 108.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/m/n on input line 106.
+(Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/m/n on input line 108.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/m/n on input line 106.
+(Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/m/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/TimesNewRoman(0)/m/it on input line 106.
+(Font)                  OT1/cmr/m/it --> TU/TimesNewRoman(0)/m/it on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/b/n on input line 106.
+(Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/b/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 106.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 106.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 108.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/b/n on input line 106.
+(Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/b/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/TimesNewRoman(0)/b/it on input line 106.
+(Font)                  OT1/cmr/bx/it --> TU/TimesNewRoman(0)/b/it on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 106.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 106.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 108.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -607,65 +648,96 @@ Font mapping `tex-text.tec' for font `Times New Roman Bold' not found.
 (./main.toc
 Font mapping `tex-text.tec' for font `Times New Roman' not found.
 Font mapping `tex-text.tec' for font `Times New Roman' not found.
-)
+ (/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
+) [1
+
+
+
+
+
+])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [1
-
-
-
-
-
-]
+ [2]
 \openout2 = `capitoli/capitolo1.aux'.
 
  (./capitoli/capitolo1.tex
 Chapter 1.
 Font mapping `tex-text.tec' for font `Times New Roman Bold' not found.
 Font mapping `tex-text.tec' for font `Times New Roman Italic' not found.
-[2
+[3
 
 
-] [3]) [4]
+] [4]) [5]
 \openout2 = `capitoli/capitolo2.aux'.
 
  (./capitoli/capitolo2.tex
 Chapter 2.
-[5
+[6
 
 
 
 
-] [6]
+] [7]
 Font mapping `tex-text.tec' for font `Times New Roman' not found.
 Font mapping `tex-text.tec' for font `Times New Roman Bold' not found.
- [7] [8]
-Overfull \hbox (1.97147pt too wide) in paragraph at lines 135--136
+
+Overfull \hbox (9.19302pt too wide) in paragraph at lines 69--70
+\TU/TimesNewRoman(0)/m/n/12 itare l'ottimizzazione di reti neurali molto profonde e mitigare il problema della degradazione
+ []
+
+[8] [9]
+Overfull \hbox (0.47147pt too wide) in paragraph at lines 136--137
 \TU/TimesNewRoman(0)/m/n/12 partire l'aumento di risorse tra le tre dimensioni; è invece il coefficiente $\OML/cmm/m/it/12 ^^^$\TU/TimesNewRoman(0)/m/n/12 , scelto dall'utente,
  []
 
-[9]
-Overfull \hbox (12.186pt too wide) in paragraph at lines 144--145
+[10]
+Overfull \hbox (12.186pt too wide) in paragraph at lines 145--146
 []\TU/TimesNewRoman(0)/b/n/12 EfficientNet\TU/TimesNewRoman(0)/m/n/12 : si concentra e ottimizza il bilancio tra profondità, larghezza e risoluzione
  []
 
-) [10]
+) [11]
 \openout2 = `capitoli/capitolo3.aux'.
 
  (./capitoli/capitolo3.tex
 Chapter 3.
-) [11
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmtt' (encoding: TU).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+Overfull \hbox (17.64569pt too wide) in paragraph at lines 30--31
+\TU/TimesNewRoman(0)/m/n/12 anti come backbone per gli esperimenti: \TU/TimesNewRoman(0)/b/n/12 ResNet18\TU/TimesNewRoman(0)/m/n/12 , \TU/TimesNewRoman(0)/b/n/12 ResNet50\TU/TimesNewRoman(0)/m/n/12 , \TU/TimesNewRoman(0)/b/n/12 DenseNet121 \TU/TimesNewRoman(0)/m/n/12 ed \TU/TimesNewRoman(0)/b/n/12 EfficientNet-
+ []
+
+
+Overfull \hbox (0.90201pt too wide) in paragraph at lines 32--33
+[]\TU/TimesNewRoman(0)/m/n/12 L'integrazione del task multi-label sui backbone descritti nel capitolo 2.2[] segue uno schema
+ []
+
+[12
 
 
 
 
 ]
+Font mapping `tex-text.tec' for font `Times New Roman' not found.
+Font mapping `tex-text.tec' for font `Times New Roman' not found.
+Font mapping `tex-text.tec' for font `Times New Roman' not found.
+Font mapping `tex-text.tec' for font `Times New Roman Italic' not found.
+
+Overfull \hbox (34.44676pt too wide) in paragraph at lines 45--46
+[]\TU/TimesNewRoman(0)/m/n/12 Le due head sono costituite da un singolo layer lineare (\TU/lmtt/m/n/12 Linear(feature_dim, num_classes)\TU/TimesNewRoman(0)/m/n/12 ).
+ []
+
+) [13]
 \openout2 = `capitoli/capitolo4.aux'.
 
  (./capitoli/capitolo4.tex
 Chapter 4.
-) [12
+) [14
 
 
 
@@ -675,7 +747,7 @@ Chapter 4.
 
  (./capitoli/capitolo5.tex
 Chapter 5.
-) [13
+) [15
 
 
 
@@ -685,12 +757,12 @@ Chapter 5.
 
  (./capitoli/capitolo6.tex
 Chapter 6.
-) [14
+) [16
 
 
 
 
-] [15
+] [17
 
 
 
@@ -704,12 +776,12 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 13505 strings out of 470217
- 298329 string characters out of 5480475
- 1198312 words of memory out of 5000000
- 41906 multiletter control sequences out of 15000+600000
- 631307 words of font info for 74 fonts, out of 8000000 for 9000
+ 15311 strings out of 470217
+ 331350 string characters out of 5480475
+ 1255201 words of memory out of 5000000
+ 43696 multiletter control sequences out of 15000+600000
+ 631793 words of font info for 80 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,93p,796b,4850s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 60i,12n,93p,1032b,4860s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (15 pages).
+Output written on main.pdf (17 pages).

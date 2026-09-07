@@ -55,7 +55,6 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
-      \field{month}{6}
       \field{title}{Deep Residual Learning for Image Recognition}
       \field{year}{2016}
     \endentry
@@ -109,6 +108,90 @@
       \verb{url}
       \verb https://arxiv.org/abs/1608.06993
       \endverb
+    \endentry
+    \entry{krizhevsky2009learning}{report}{}{}
+      \name{author}{2}{}{%
+        {{hash=c5e3a676e2ac1164b3afcd539c131fc9}{%
+           family={Krizhevsky},
+           familyi={K\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+        {{hash=9a8750ccdb2a4cf14d2655face1ce016}{%
+           family={Hinton},
+           familyi={H\bibinitperiod},
+           given={Geoffrey},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {University of Toronto}%
+      }
+      \list{location}{1}{%
+        {Toronto, Ontario}%
+      }
+      \list{publisher}{1}{%
+        {Technical report, University of Toronto}%
+      }
+      \strng{namehash}{db1738a0374d10d152a785eb2a94ce8c}
+      \strng{fullhash}{db1738a0374d10d152a785eb2a94ce8c}
+      \strng{fullhashraw}{db1738a0374d10d152a785eb2a94ce8c}
+      \strng{bibnamehash}{db1738a0374d10d152a785eb2a94ce8c}
+      \strng{authorbibnamehash}{db1738a0374d10d152a785eb2a94ce8c}
+      \strng{authornamehash}{db1738a0374d10d152a785eb2a94ce8c}
+      \strng{authorfullhash}{db1738a0374d10d152a785eb2a94ce8c}
+      \strng{authorfullhashraw}{db1738a0374d10d152a785eb2a94ce8c}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{0}
+      \field{title}{Learning multiple layers of features from tiny images}
+      \field{type}{techreport}
+      \field{year}{2009}
+      \verb{urlraw}
+      \verb https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf
+      \endverb
+    \endentry
+    \entry{parkhi12a}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=cebba684115fba86fe15bf9fd411bc4e}{%
+           family={Parkhi},
+           familyi={P\bibinitperiod},
+           given={Omkar\bibnamedelima M.},
+           giveni={O\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=85ab53268da1006b51b453d57d3566f2}{%
+           family={Vedaldi},
+           familyi={V\bibinitperiod},
+           given={Andrea},
+           giveni={A\bibinitperiod}}}%
+        {{hash=c72fc39e94030f67717052309266a44d}{%
+           family={Zisserman},
+           familyi={Z\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+        {{hash=c28cbc2901395b4ae713740941e45d6f}{%
+           family={Jawahar},
+           familyi={J\bibinitperiod},
+           given={C.\bibnamedelimi V.},
+           giveni={C\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+      }
+      \strng{namehash}{4c60b3a928a6c680dd3d8c942046636e}
+      \strng{fullhash}{c8efc7c88972e24aee55de53d418c01c}
+      \strng{fullhashraw}{c8efc7c88972e24aee55de53d418c01c}
+      \strng{bibnamehash}{4c60b3a928a6c680dd3d8c942046636e}
+      \strng{authorbibnamehash}{4c60b3a928a6c680dd3d8c942046636e}
+      \strng{authornamehash}{4c60b3a928a6c680dd3d8c942046636e}
+      \strng{authorfullhash}{c8efc7c88972e24aee55de53d418c01c}
+      \strng{authorfullhashraw}{c8efc7c88972e24aee55de53d418c01c}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{IEEE Conference on Computer Vision and Pattern Recognition}
+      \field{title}{Cats and Dogs}
+      \field{year}{2012}
     \endentry
     \entry{tan2020efficientnetrethinkingmodelscaling}{misc}{}{}
       \name{author}{2}{}{%

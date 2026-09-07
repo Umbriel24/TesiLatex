@@ -1,1 +1,58 @@
-\chapter{Progettazione della pipeline sperimentale}
+\chapter{Pipeline sperimentale e metodologia}
+
+\section{Dataset e task}
+
+Per realizzare la tesi sono stati utilizzati due dataset: 
+
+\begin{itemize}
+    \item \emph{Oxford-IIIT Pet}~\cite{parkhi12a}, composto da immagini di cani e gatti suddivise in 37 classi. 
+            Il dataset comprende un file di annotazione che associa ad ogni immagine una tupla
+            (\texttt{image\_path, micro\_label e macro\_label}), ove:
+
+            \begin{itemize}
+                \item \texttt{micro\_label} identifica la razza tra le 37 disponibili;
+                \item \texttt{macro\_label} identifica la specie, ovvero cane o gatto.
+            \end{itemize}
+
+            Il dataset è diviso in tre sottoinsiemi: training (70\%), validazione (15\%) e test (15\%).
+            La suddivisione è realizzata tramite uno split in modo da preservare la distribuzione equa delle 37 classi.
+    \item \emph{CIFAR-100}~\cite{krizhevsky2009learning}, composto da 100 classi raggrupate in 20 superclassi. 
+    Ogni superclasse comprende 5 classi, per un totale di 100 fine label. Per contenere il costo
+    computazionale degli esperimenti, è stato estratto inizialmente un sottoinsieme di 50 campioni per ciascuna classe.
+    Successivamente la quantità è stata aumentata a 200 campioni per classe, poiché la quantità iniziale produceva un risultato
+    caratterizzato da variabilità e rumore.
+    
+    Il campionamento è stato effettuato prima della suddisivione stratificata del dataset, secondo la proporzione 70\%/15\%/15\% tra training, validation e test.
+\end{itemize}
+
+\section{Architettura multi-task}
+
+Delle famiglie architetturali presentate nel capitolo~\ref{chapter:2.2}, sono state selezionate quattro varianti come backbone per gli esperimenti: \textbf{ResNet18}, \textbf{ResNet50}, \textbf{DenseNet121} ed \textbf{EfficientNet-B0}.
+
+L'integrazione del task multi-label sui backbone descritti nel capitolo~\ref{chapter:2.2} segue uno schema standard, noto come \emph{hard parameter sharing}: un unico backbone convoluzionale è utilizzato da due head di classificazione indipendenti.
+
+Il backbone elabora l'immagine fino al GAP\footnote{GAP: \emph{Global Average Pooling}. Operazione applicata al termine del backbone che riduce ciascuna mappa di feature a un singolo valore medio, trasformando così il volume di feature tridimensionale in un vettore monodimensionale utilizzabile dalle head di classificazione.}, producendo un vettore di embedding la cui dimensione dipende dall'architettura:
+
+\begin{itemize}
+    \item 512 per ResNet18;
+    \item 2048 per ResNet50;
+    \item 1024 per DenseNet121;
+    \item 1280 per EfficientNet-B0.
+\end{itemize}
+
+Questo vettore è utilizzato in parallelo da entrambe le head.
+
+Le due head sono costituite da un singolo layer lineare (\texttt{Linear(feature\_dim, num\_classes)}). Le proiezioni delle due teste sono, rispettivamente, su 37 classi (razza) e 2 classi (specie) per Oxford-IIIT Pet; su 100 classi (\emph{fine}) e 20 classi (\emph{coarse}) per CIFAR-100.
+
+La funzione di loss è una combinazione pesata delle due cross-entropy, tramite i coefficienti $\alpha$ e $\beta$:
+
+\begin{equation}
+    \mathcal{L}_{\text{tot}} = \alpha \cdot \mathcal{L}_{\text{micro}} + \beta \cdot \mathcal{L}_{\text{macro}}
+\end{equation}
+
+con $\alpha = 1.0$ e $\beta = 0.5$: il task fine-grained (micro) pesa dunque il doppio rispetto al task coarse (macro) nella loss totale.
+\section{Procedura di training dei modelli}
+
+\section{Degradazione controllata del training set}
+
+\section{Metriche di valutazione}

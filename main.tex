@@ -1,6 +1,7 @@
 \documentclass[12pt]{extreport}
 \usepackage[backend=biber]{biblatex}
 \usepackage{amsmath}
+\usepackage{microtype}
 \addbibresource{bibliografia/bibliografia.bib}
 
 % -------------------------------------------------
@@ -79,7 +80,8 @@
 % -------------------------------------------------
 % NOTE A PIÈ DI PAGINA
 % -------------------------------------------------
-\usepackage[bottom]{footmisc}
+\usepackage[bottom,hang]{footmisc}
+\setlength{\footnotemargin}{1.2em} % allinea il testo lasciando il numerino a sinistra
 
 % Spazio tra il testo principale e la linea delle note
 \setlength{\skip\footins}{15pt}

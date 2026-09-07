@@ -1,4 +1,4 @@
-\chapter{Apprendimento dei vari modelli neurali}
+\chapter{Fondamenti teorici sulle architetture}
 
 \section{Apprendimento multi-task gerarchico}
 
@@ -61,7 +61,8 @@ Una rete profonda non migliora le prestazioni, ma le peggiora nettamente. Non è
 
 
 
-\section{Architetture di estrazione delle feature}
+\section{Backbone per l'estrazione di feature}
+\label{chapter:2.2}
 
 \subsection{ResNet}
 
@@ -134,7 +135,7 @@ EfficientNet scala queste dimensioni tramite il \emph{compound scaling method}: 
 
 dove \(\alpha, \beta, \gamma\) sono costanti trovate tramite grid search su un modello base (\emph{EfficientNet-B0}, ottenuto tramite \emph{NAS}, Neural Architecture Search). Queste costanti stabiliscono come ripartire l'aumento di risorse tra le tre dimensioni; è invece il coefficiente $\phi$, scelto dall'utente, a determinare quante risorse complessive si vogliono impiegare. Ogni incremento di $\phi$ porta a un raddoppio approssimativo dei FLOPs della rete (\emph{floating point operations}, il numero di operazioni in virgola mobile richieste per un'inferenza), pari a $2^\phi$.
 
-\section{Confronto tra le architetture}
+\section{Analisi comparativa}
 
 Le architetture presentate affrontano da diverse prospettive il problema di rendere le reti neurali sempre più profonde ed efficienti:
 
