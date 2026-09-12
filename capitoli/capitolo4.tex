@@ -2,6 +2,88 @@
 
 \section{Risultati Dataset Oxford-IIIT Pet}
 
+\subsection*{Analisi Micro-dropout}
+
+Come mostrato in Figura~\ref{fig:micro-dropout-pet}, il Macro F1-score\footnote{media semplice della F1 calcolata per ogni classe}...
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/micro_dropout_f1.pdf}
+    \caption{Andamento del Macro F1-score sulle classi note al variare della percentuale di micro-dropout, per le quattro architetture testate sul dataset Oxford-IIIT Pet. Le bande rappresentano $\pm 1$ deviazione standard calcolata su 2 seed (42, 777).}
+    \label{fig:micro-dropout-pet}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \begin{tabular}{llccc}
+        \toprule
+        \textbf{Modello} & \textbf{Drop \%} & \textbf{Accuracy} & \textbf{Precision} & \textbf{F1-score} \\
+        \midrule
+        \multirow{3}{*}{EfficientNet} & 0  & 0.851 $\pm$ 0.029 & 0.862 $\pm$ 0.021 & 0.849 $\pm$ 0.028 \\
+                                       & 20 & 0.753 $\pm$ 0.014 & 0.798 $\pm$ 0.009 & 0.811 $\pm$ 0.002 \\
+                                       & 40 & 0.633 $\pm$ 0.016 & 0.699 $\pm$ 0.005 & 0.745 $\pm$ 0.003 \\
+        \midrule
+        \multirow{3}{*}{DenseNet}     & 0  & 0.780 $\pm$ 0.017 & 0.806 $\pm$ 0.010 & 0.779 $\pm$ 0.018 \\
+                                       & 20 & 0.691 $\pm$ 0.015 & 0.750 $\pm$ 0.007 & 0.744 $\pm$ 0.025 \\
+                                       & 40 & 0.592 $\pm$ 0.023 & 0.672 $\pm$ 0.016 & 0.702 $\pm$ 0.017 \\
+        \midrule
+        \multirow{3}{*}{ResNet50}     & 0  & 0.818 $\pm$ 0.017 & 0.836 $\pm$ 0.009 & 0.816 $\pm$ 0.018 \\
+                                       & 20 & 0.628 $\pm$ 0.012 & 0.708 $\pm$ 0.025 & 0.670 $\pm$ 0.004 \\
+                                       & 40 & 0.578 $\pm$ 0.022 & 0.684 $\pm$ 0.007 & 0.688 $\pm$ 0.018 \\
+        \midrule
+        \multirow{3}{*}{ResNet18}     & 0  & 0.719 $\pm$ 0.022 & 0.763 $\pm$ 0.011 & 0.716 $\pm$ 0.024 \\
+                                       & 20 & 0.628 $\pm$ 0.008 & 0.673 $\pm$ 0.010 & 0.670 $\pm$ 0.024 \\
+                                       & 40 & 0.479 $\pm$ 0.028 & 0.585 $\pm$ 0.007 & 0.561 $\pm$ 0.009 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Accuracy, Precision (macro, classi note) e F1-score (macro, classi note) al variare della percentuale di micro-dropout, per le quattro architetture, dataset Oxford-IIIT Pet. Valori riportati come media $\pm$ deviazione standard su 2 seed (42, 777).}
+    \label{tab:metriche-pet}
+\end{table}
+
+\FloatBarrier
+
+\subsection*{Analisi Macro-dropout}
+
+Come mostrato in Figura~\ref{fig:macro-dropout-pet}, il macro-dropout non produce un trend di degradazione riconoscibile: per tutte le architetture le curve oscillano entro una banda ristretta al variare della percentuale di rimozione, senza una direzione discendente definita.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/macro_dropout_f1.pdf}
+    \caption{Andamento del Macro F1-score sulle classi note al variare della percentuale di macro-dropout, per le quattro architetture testate sul dataset Oxford-IIIT Pet. Le bande rappresentano $\pm 1$ deviazione standard calcolata su 2 seed (42, 777).}
+    \label{fig:macro-dropout-pet}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \begin{tabular}{llccc}
+        \toprule
+        \textbf{Modello} & \textbf{Drop \%} & \textbf{Accuracy} & \textbf{Precision} & \textbf{F1-score} \\
+        \midrule
+        \multirow{3}{*}{EfficientNet} & 0  & 0.851 $\pm$ 0.029 & 0.862 $\pm$ 0.021 & 0.849 $\pm$ 0.028 \\
+                                       & 20 & 0.853 $\pm$ 0.009 & 0.868 $\pm$ 0.001 & 0.853 $\pm$ 0.006 \\
+                                       & 40 & 0.855 $\pm$ 0.002 & 0.864 $\pm$ 0.000 & 0.855 $\pm$ 0.001 \\
+        \midrule
+        \multirow{3}{*}{DenseNet}     & 0  & 0.780 $\pm$ 0.017 & 0.806 $\pm$ 0.010 & 0.779 $\pm$ 0.018 \\
+                                       & 20 & 0.797 $\pm$ 0.011 & 0.820 $\pm$ 0.007 & 0.794 $\pm$ 0.011 \\
+                                       & 40 & 0.772 $\pm$ 0.004 & 0.799 $\pm$ 0.004 & 0.772 $\pm$ 0.003 \\
+        \midrule
+        \multirow{3}{*}{ResNet50}     & 0  & 0.818 $\pm$ 0.017 & 0.836 $\pm$ 0.009 & 0.816 $\pm$ 0.018 \\
+                                       & 20 & 0.777 $\pm$ 0.006 & 0.805 $\pm$ 0.002 & 0.777 $\pm$ 0.004 \\
+                                       & 40 & 0.781 $\pm$ 0.038 & 0.810 $\pm$ 0.027 & 0.779 $\pm$ 0.043 \\
+        \midrule
+        \multirow{3}{*}{ResNet18}     & 0  & 0.719 $\pm$ 0.022 & 0.763 $\pm$ 0.011 & 0.716 $\pm$ 0.024 \\
+                                       & 20 & 0.704 $\pm$ 0.015 & 0.758 $\pm$ 0.011 & 0.702 $\pm$ 0.015 \\
+                                       & 40 & 0.683 $\pm$ 0.087 & 0.745 $\pm$ 0.051 & 0.690 $\pm$ 0.084 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Accuracy, Precision e F1-score al variare della percentuale di macro-dropout, 
+    per le quattro architetture, dataset Oxford-IIIT Pet. Valori riportati come media $\pm$ deviazione standard su 2 seed (42, 777).}
+    \label{tab:metriche-pet-macro}
+\end{table}
+
+\FloatBarrier
+
 \section{Risultati Dataset CIFAR-100}
 
 \section{Discussione sui risultati ottenuti}

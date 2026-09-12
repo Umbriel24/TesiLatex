@@ -117,4 +117,42 @@ Con il micro\_drop, questo significa che il modello viene valutato anche su clas
 discusse nella Sezione~\ref{sec:metriche-valutazione}.
 
 \section{Metriche di valutazione}
+
+Per ciascuna combinazione di modello, dataset, tipologia di degradazione, percentuale e seed, i risultati sono raccolti in tre file CSV distinti, con scopi complementari.
+
+\subsection*{Log di training}
+
+Per ogni modello viene generato un unico file di log (ad esempio \texttt{resnet18\_training\_log.csv}) che aggrega lo storico di tutte le run effettuate su quel backbone. 
+Ogni riga corrisponde a un'epoca di una specifica run, identificata da tipo di degradazione, sia percentuale che seed, e riporta la loss di training e di validazione corrispondenti.
+
+\subsection*{Report globale}
+
+Il report globale riporta, per ogni combinazione di tipologia di degradazione, percentuale e seed, tre valori aggregati calcolati sul test set completo (37 classi per Oxford-IIIT Pet, 100 per CIFAR-100):
+
+\begin{itemize}
+    \item \textbf{Accuracy}: rapporto tra predizioni corrette e totale delle predizioni, calcolata sul task micro;
+    \item \textbf{Macro F1 globale}: media aritmetica della F1-score calcolata su tutte le classi del task micro, incluse quelle non presenti nel training della run corrente;
+    \item \textbf{Macro F1 note}: media aritmetica della F1-score calcolata esclusivamente sulle classi effettivamente presenti nel training della run corrente. 
+	L'insieme delle classi note viene ricostruito a partire dal seed della run, ripetendo la stessa procedura di degradazione applicata in fase di addestramento.
+\end{itemize}
+
+La distinzione tra le due varianti di F1 è motivata dall'effetto del \emph{micro\_drop} sulle metriche: le classi escluse dal training non ricevono mai gradiente positivo per la loro unità di output corrispondente e, 
+in fase di test, ottengono tipicamente F1 pari a zero (nessuna predizione corretta per quella classe). 
+
+Includendo queste classi nel calcolo della Macro F1 globale, la metrica risulta penalizzata dalle classi escluse, 
+indipendente dalla reale capacità del modello sulle classi effettivamente apprese.
+ 
+La \emph{Macro F1 Note} isola questo effetto, restituendo una misura della performance del modello limitata a ciò che ha potuto effettivamente imparare.
+
+\subsection*{Report per classe}
+
+Il terzo file riporta, per ogni combinazione di tipologia di degradazione, percentuale e seed, una riga per ciascuna delle classi del task micro, con le seguenti informazioni:
+
+\begin{itemize}
+    \item se la classe è stata vista o meno durante il training della run corrente;
+    \item precision, recall, F1-score e support, calcolati sul test set.
+\end{itemize}
+
+Questo livello di dettaglio consente di analizzare l'impatto della degradazione classe per classe, distinguendo il comportamento del modello sulle classi note da quello sulle classi mai osservate in training.
+
 \label{sec:metriche-valutazione}
