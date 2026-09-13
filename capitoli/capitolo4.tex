@@ -173,4 +173,24 @@ Il confronto con i risultati ottenuti su Oxford-IIIT Pet (Sezione~\ref{sec:pet})
 
 \FloatBarrier
 
+\clearpage
 \section{Discussione sui risultati ottenuti}
+\label{sec:discussione}
+
+Il confronto tra i due dataset conferma alcuni pattern comuni e ne evidenzia altri specifici del dominio applicativo.
+
+\textbf{Macro-dropout.} Su entrambi i dataset la riduzione uniforme degli esempi per classe non produce un trend di degradazione riconoscibile: le oscillazioni osservate restano contenute (range di Macro F1 tra $0.028$ e $0.080$ per Pet, tra $0.030$ e $0.049$ per CIFAR-100), confermando che questo tipo di degradazione non altera sostanzialmente la difficoltà relativa del problema.
+
+\textbf{Micro-dropout.} Come mostrato in Figura~\ref{fig:confronto-pet-cifar}, la rimozione di intere classi produce una degradazione progressiva del Macro F1-score su entrambi i dataset, con un calo relativo simile in termini percentuali (tra il $-10\%$ e il $-17\%$ dal $5\%$ al $40\%$ di dropout, a seconda dell'architettura). La differenza principale tra i due dataset risiede nel punto di partenza: CIFAR-100 presenta prestazioni di baseline significativamente inferiori a quelle di Pet ($\text{F1}\approx 0.68$ contro $\text{F1}\approx 0.85$), verosimilmente a causa della maggiore complessità del task (100 classi contro $37$, risoluzione delle immagini ridotta a $32\times32$ pixel). Questo comporta che, a parità di percentuale di dropout, le prestazioni assolute su CIFAR-100 raggiungano livelli più critici rispetto a Pet.
+
+Si osserva inoltre che l'andamento della curva di degradazione è più irregolare su Pet, specialmente per ResNet50, mentre risulta più liscio e monotono su CIFAR-100. Questo potrebbe essere legato al numero maggiore di classi coinvolte in CIFAR-100, che rende l'effetto della rimozione di singole classi meno sensibile alla specifica combinazione di classi escluse a ciascuna soglia.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/confronto_pet_cifar_micro.pdf}
+    \caption{Confronto diretto dell'andamento del Macro F1-score al crescere della percentuale di micro-dropout tra i due dataset (seed 42).}
+    \label{fig:confronto-pet-cifar}
+
+\end{figure}
+
+In entrambi i casi, il ranking tra le architetture si mantiene coerente: EfficientNet ottiene prestazioni superiori a ResNet50 a ogni livello di dropout testato, su entrambi i dataset, confermando una maggiore robustezza generale di questa architettura alla perdita di classi durante il training.
