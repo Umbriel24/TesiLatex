@@ -97,7 +97,80 @@ Un'eccezione riguarda ResNet18 al $40\%$ di dropout, dove la deviazione standard
 \FloatBarrier
 
 
-
+\clearpage
 \section{Risultati Dataset CIFAR-100}
+\label{sec:cifar100}
+
+Per il dataset CIFAR-100 sono state addestrate e valutate due sole architetture, EfficientNet e ResNet50, a causa di vincoli di tempo e di risorse di calcolo disponibili. I risultati riportati in questa sezione fanno riferimento a una singola run (seed 42).
+
+\subsection*{Analisi Macro-dropout}
+
+Come mostrato in Figura~\ref{fig:macro-dropout-cifar}, anche su CIFAR-100 il macro-dropout non produce un trend di degradazione riconoscibile: le curve di entrambe le architetture restano pressoché piatte lungo l'intero intervallo di percentuali testate.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/cifar_macro_dropout_f1.pdf}
+    \caption{Andamento del Macro F1-score sulle classi note al variare della percentuale di macro-dropout, per EfficientNet e ResNet50 sul dataset CIFAR-100 (seed 42).}
+    \label{fig:macro-dropout-cifar}
+\end{figure}
+
+\begin{table}[!ht]
+    \centering
+    \small
+    \begin{tabular}{llccc}
+        \toprule
+        \textbf{Modello} & \textbf{Drop \%} & \textbf{Accuracy} & \textbf{Precision} & \textbf{F1-score} \\
+        \midrule
+        \multirow{3}{*}{EfficientNet} & 0  & 0.723 & 0.738 & 0.723 \\
+                                       & 20 & 0.714 & 0.728 & 0.714 \\
+                                       & 40 & 0.712 & 0.725 & 0.711 \\
+        \midrule
+        \multirow{3}{*}{ResNet50}     & 0  & 0.659 & 0.689 & 0.659 \\
+                                       & 20 & 0.655 & 0.680 & 0.657 \\
+                                       & 40 & 0.672 & 0.694 & 0.670 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Accuracy, Precision e F1-score al variare della percentuale di macro-dropout, per EfficientNet e ResNet50, dataset CIFAR-100 (seed 42).}
+    \label{tab:metriche-cifar-macro}
+\end{table}
+
+I valori in Tabella~\ref{tab:metriche-cifar-macro} confermano il comportamento osservato graficamente, con variazioni minime tra lo $0\%$ e il $40\%$ di macro-dropout per entrambe le architetture. Il risultato è coerente con quanto osservato sul dataset Oxford-IIIT Pet, ed è atteso per lo stesso motivo: la riduzione uniforme degli esempi in ogni classe non altera la difficoltà relativa del problema di classificazione.
+
+\FloatBarrier
+
+\subsection*{Analisi Micro-dropout}
+
+Come mostrato in Figura~\ref{fig:micro-dropout-cifar}, anche su CIFAR-100 il micro-dropout produce un trend di degradazione chiaro e monotono del Macro F1-score al crescere della percentuale di classi rimosse dal training, in linea con quanto osservato sul dataset Oxford-IIIT Pet.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/cifar_micro_dropout_f1.pdf}
+    \caption{Andamento del Macro F1-score sulle classi note al variare della percentuale di micro-dropout, per EfficientNet e ResNet50 sul dataset CIFAR-100 (seed 42).}
+    \label{fig:micro-dropout-cifar}
+\end{figure}
+
+\begin{table}[!htb]
+    \centering
+    \small
+    \begin{tabular}{llccc}
+        \toprule
+        \textbf{Modello} & \textbf{Drop \%} & \textbf{Accuracy} & \textbf{Precision} & \textbf{F1-score} \\
+        \midrule
+        \multirow{3}{*}{EfficientNet} & 0  & 0.723 & 0.738 & 0.723 \\
+                                       & 20 & 0.579 & 0.620 & 0.655 \\
+                                       & 40 & 0.452 & 0.489 & 0.579 \\
+        \midrule
+        \multirow{3}{*}{ResNet50}     & 0  & 0.659 & 0.689 & 0.659 \\
+                                       & 20 & 0.542 & 0.595 & 0.615 \\
+                                       & 40 & 0.412 & 0.469 & 0.539 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Accuracy, Precision e F1-score al variare della percentuale di micro-dropout, per EfficientNet e ResNet50, dataset CIFAR-100 (seed 42).}
+    \label{tab:metriche-cifar-micro}
+\end{table}
+
+Il confronto con i risultati ottenuti su Oxford-IIIT Pet (Sezione~\ref{sec:pet}) evidenzia un comportamento coerente tra i due dataset: in entrambi i casi il micro-dropout causa una degradazione progressiva del Macro F1-score al crescere della percentuale di classi rimosse, sebbene con intensità diverse a seconda dell'architettura e del dataset considerato. Su CIFAR-100 il calo risulta particolarmente marcato oltre il $25\%$ di dropout, con una perdita di oltre $25$ punti percentuali di Accuracy tra il caso baseline e il $40\%$ di rimozione per entrambe le architetture. Questo risultato verrà approfondito nella discussione (Sezione~\ref{sec:discussione}).
+
+\FloatBarrier
 
 \section{Discussione sui risultati ottenuti}
