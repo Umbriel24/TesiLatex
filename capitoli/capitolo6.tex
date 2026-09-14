@@ -1,5 +1,45 @@
 \chapter{Conclusione e sviluppi futuri}
 
 \section{Sintesi e limiti dello studio}
+Il presente lavoro ha analizzato l'impatto di due forme di degradazione controllata del dataset di training — macro-dropout, ossia la riduzione uniforme degli esempi per ciascuna classe, e micro-dropout, 
+ossia la rimozione completa di alcune classi — sulle prestazioni di classificazione di diverse architetture convoluzionali, su due dataset (Oxford-IIIT Pet e CIFAR-100). 
+I risultati hanno mostrato in modo consistente come il macro-dropout non produca una degradazione significativa delle prestazioni, 
+mentre il micro-dropout comprometta progressivamente il Macro F1-score al crescere della percentuale di classi rimosse, con un impatto relativo simile tra i due dataset ma livelli assoluti più critici su CIFAR-100, 
+verosimilmente a causa della maggiore complessità intrinseca del task. In entrambi i casi, 
+EfficientNet si è confermata l'architettura più performante e robusta, mentre ResNet18 ha mostrato le maggiori criticità sia in termini di prestazioni assolute sia di stabilità tra run.
+
+A partire da questi risultati, è stato adottato un approccio a reti prototipiche per recuperare la capacità di riconoscere le classi escluse dal training tramite un numero ridotto di esempi di supporto. 
+I risultati ottenuti su Oxford-IIIT Pet, valutati su $30$ episodi indipendenti, hanno mostrato un recupero parziale ma consistente delle classi non viste, a fronte di un lieve peggioramento delle prestazioni sulle classi note, 
+più marcato per alcune architetture rispetto ad altre.
+
+Lo studio presenta alcuni limiti che è opportuno evidenziare esplicitamente. In primo luogo, su CIFAR-100 sono state addestrate e valutate solamente due architetture, 
+anziché le quattro utilizzate su Pet, a causa di vincoli di tempo e di risorse di calcolo; per lo stesso motivo, la valutazione del prototypical network su CIFAR-100 è stata condotta su un singolo episodio anziché 
+su $30$ come per Pet, riducendo l'affidabilità statistica di questi risultati specifici. In secondo luogo, il numero di seed indipendenti utilizzati per le diverse configurazioni non è stato sempre uniforme, e in alcuni casi 
+(ad esempio l'architettura MLP su Pet) i risultati sono disponibili per un solo seed; il confronto tra i due seed disponibili su Pet ha comunque evidenziato una variabilità non trascurabile, 
+in particolare per ResNet18, suggerendo che un numero maggiore di run indipendenti sarebbe preferibile per rafforzare la robustezza statistica delle conclusioni.
 
 \section{Sviluppi futuri}
+Diversi aspetti del presente lavoro potrebbero essere approfonditi in sviluppi futuri. Un primo passo naturale consiste nell'estendere a CIFAR-100 la stessa profondità sperimentale adottata per Oxford-IIIT Pet, 
+addestrando le architetture mancanti e ripetendo la valutazione del prototypical network su un numero di episodi comparabile, in modo da rendere il confronto tra i due dataset pienamente omogeneo.
+
+Un secondo sviluppo riguarda l'aumento del numero di seed indipendenti per ciascuna configurazione, così da poter stimare con maggiore accuratezza la variabilità dei risultati e distinguere in modo più netto gli effetti sistematici 
+da quelli dovuti al rumore di inizializzazione.
+
+Infine, un'ulteriore direzione di ricerca potrebbe riguardare la valutazione del prototypical network secondo lo scenario di \emph{few-shot puro}, 
+in cui la classificazione avviene esclusivamente tra le classi non viste, isolando così la capacità di apprendimento few-shot del modello dall'influenza delle classi già note; 
+un confronto diretto tra questo scenario e quello \emph{Generalized} adottato in questo lavoro permetterebbe di quantificare più precisamente il costo, in termini di prestazioni sulle classi note, 
+dell'approccio qui proposto.
+
+\section{Considerazioni finali}
+Il presente lavoro ha affrontato un aspetto spesso trascurato nella valutazione dei modelli di classificazione: 
+la loro tenuta al degrado del dataset di training, distinguendo esplicitamente tra una riduzione uniforme degli esempi e una rimozione mirata di intere classi. 
+I risultati ottenuti mostrano che queste due forme di degradazione hanno un impatto profondamente diverso sulle prestazioni, e che tale impatto non è uniforme tra architetture: 
+EfficientNet si è confermata la scelta più robusta in entrambi gli scenari testati, mentre architetture più leggere come ResNet18 hanno mostrato una fragilità significativa sia in termini di prestazioni sia di stabilità.
+
+L'adozione di un approccio a reti prototipiche ha inoltre dimostrato che è possibile recuperare, almeno parzialmente, 
+la capacità di riconoscere le classi escluse dal training senza ricorrere a un nuovo addestramento completo del modello, sebbene con un costo non trascurabile in termini di accuratezza rispetto alle classi apprese in modo tradizionale. 
+Questo risultato conferma il potenziale del few-shot learning come strumento pratico per scenari applicativi in cui il dataset di training è soggetto a aggiornamenti frequenti o incompleti — una condizione tutt'altro che rara 
+in contesti reali.
+
+Nel complesso, lo studio condotto offre indicazioni utili sia dal punto di vista della scelta architetturale in presenza di dataset potenzialmente incompleti, 
+sia come base metodologica per l'integrazione di tecniche di few-shot learning in pipeline di classificazione già esistenti.
