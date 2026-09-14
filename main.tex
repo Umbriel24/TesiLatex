@@ -1,4 +1,5 @@
 \documentclass[12pt]{extreport}
+
 \usepackage[backend=biber]{biblatex}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -7,7 +8,14 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{placeins}
+\usepackage{pdfpages}
+
 \addbibresource{bibliografia/bibliografia.bib}
+
+\renewcommand{\contentsname}{Indice}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabella}
+\renewcommand{\bibname}{Bibliografia}
 
 % -------------------------------------------------
 % FONT: Times New Roman
@@ -114,7 +122,10 @@
 \begin{document}
 
 % Frontespizio
-\include{frontespizio}
+\includepdf[
+    pages=1,
+    pagecommand={\thispagestyle{empty}}
+]{frontespizio}
 
 % Indice
 \tableofcontents

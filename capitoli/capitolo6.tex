@@ -32,13 +32,13 @@ dell'approccio qui proposto.
 
 \section{Considerazioni finali}
 Il presente lavoro ha affrontato un aspetto spesso trascurato nella valutazione dei modelli di classificazione: 
-la loro tenuta al degrado del dataset di training, distinguendo esplicitamente tra una riduzione uniforme degli esempi e una rimozione mirata di intere classi. 
-I risultati ottenuti mostrano che queste due forme di degradazione hanno un impatto profondamente diverso sulle prestazioni, e che tale impatto non è uniforme tra architetture: 
+la loro performance al degrado del dataset di training, distinguendo esplicitamente tra una riduzione uniforme degli esempi e una rimozione mirata di intere classi. 
+I risultati ottenuti mostrano che queste due forme di degradazione hanno un impatto profondamente diverso sulle prestazioni, e che tale impatto non è uniforme tra le diverse architetture: 
 EfficientNet si è confermata la scelta più robusta in entrambi gli scenari testati, mentre architetture più leggere come ResNet18 hanno mostrato una fragilità significativa sia in termini di prestazioni sia di stabilità.
 
 L'adozione di un approccio a reti prototipiche ha inoltre dimostrato che è possibile recuperare, almeno parzialmente, 
 la capacità di riconoscere le classi escluse dal training senza ricorrere a un nuovo addestramento completo del modello, sebbene con un costo non trascurabile in termini di accuratezza rispetto alle classi apprese in modo tradizionale. 
-Questo risultato conferma il potenziale del few-shot learning come strumento pratico per scenari applicativi in cui il dataset di training è soggetto a aggiornamenti frequenti o incompleti — una condizione tutt'altro che rara 
+Questo risultato conferma il potenziale del few-shot learning come strumento pratico per scenari in cui il dataset di training è soggetto a aggiornamenti frequenti o incompleti — una condizione tutt'altro che rara 
 in contesti reali.
 
 Nel complesso, lo studio condotto offre indicazioni utili sia dal punto di vista della scelta architetturale in presenza di dataset potenzialmente incompleti, 
