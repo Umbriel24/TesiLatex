@@ -18,7 +18,7 @@ La classificazione di un nuovo esempio $x$ avviene calcolando la distanza (eucli
 \begin{equation}
     p_\phi(y=k \mid x) = \frac{\exp(-d(f_\phi(x), c_k))}{\sum_{k'} \exp(-d(f_\phi(x), c_{k'}))}
 \end{equation}
-Questo approccio rende naturale il funzionamento in regime few-shot: è sufficiente disporre di un piccolo numero di esempi (\emph{shot}) per costruire il prototipo di una nuova classe, senza necessità di riaddestrare l'intero modello.
+Questo approccio rende semplice il funzionamento few-shot: è sufficiente disporre di un piccolo numero di esempi (\emph{shot}) per costruire il prototipo di una nuova classe, senza necessità di riaddestrare l'intero modello.
 
 \section{Setup e campionamento}
 La valutazione del prototypical network è stata condotta secondo lo scenario \emph{Generalized Few-Shot}: 

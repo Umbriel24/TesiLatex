@@ -4,53 +4,6 @@
 \section{Risultati Dataset Oxford-IIIT Pet}
 \label{sec:pet}
 
-\subsection*{Analisi Micro-dropout}
-
-Come mostrato in Figura~\ref{fig:micro-dropout-pet}, il Macro F1-score\footnote{media semplice della F1 calcolata per ogni classe, limitatamente alle classi presenti nel training set (escluse quindi le razze completamente rimosse dal micro-dropout)}...\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.85\textwidth]{figures/micro_dropout_f1.pdf}
-    \caption{Andamento del Macro F1-score sulle classi note al variare della percentuale di micro-dropout, per le quattro architetture testate sul dataset Oxford-IIIT Pet. Le bande rappresentano $\pm 1$ deviazione standard calcolata su 2 seed (42, 777).}
-    \label{fig:micro-dropout-pet}
-\end{figure}
-
-\begin{table}[!htb]
-    \centering
-    \small
-    \begin{tabular}{llccc}
-        \toprule
-        \textbf{Modello} & \textbf{Drop \%} & \textbf{Accuracy} & \textbf{Precision} & \textbf{F1-score} \\
-        \midrule
-        \multirow{3}{*}{EfficientNet} & 0  & 0.851 $\pm$ 0.029 & 0.862 $\pm$ 0.021 & 0.849 $\pm$ 0.028 \\
-                                       & 20 & 0.753 $\pm$ 0.014 & 0.798 $\pm$ 0.009 & 0.811 $\pm$ 0.002 \\
-                                       & 40 & 0.633 $\pm$ 0.016 & 0.699 $\pm$ 0.005 & 0.745 $\pm$ 0.003 \\
-        \midrule
-        \multirow{3}{*}{DenseNet}     & 0  & 0.780 $\pm$ 0.017 & 0.806 $\pm$ 0.010 & 0.779 $\pm$ 0.018 \\
-                                       & 20 & 0.691 $\pm$ 0.015 & 0.750 $\pm$ 0.007 & 0.744 $\pm$ 0.025 \\
-                                       & 40 & 0.592 $\pm$ 0.023 & 0.672 $\pm$ 0.016 & 0.702 $\pm$ 0.017 \\
-        \midrule
-        \multirow{3}{*}{ResNet50}     & 0  & 0.818 $\pm$ 0.017 & 0.836 $\pm$ 0.009 & 0.816 $\pm$ 0.018 \\
-                                       & 20 & 0.628 $\pm$ 0.012 & 0.708 $\pm$ 0.025 & 0.670 $\pm$ 0.004 \\
-                                       & 40 & 0.578 $\pm$ 0.022 & 0.684 $\pm$ 0.007 & 0.688 $\pm$ 0.018 \\
-        \midrule
-        \multirow{3}{*}{ResNet18}     & 0  & 0.719 $\pm$ 0.022 & 0.763 $\pm$ 0.011 & 0.716 $\pm$ 0.024 \\
-                                       & 20 & 0.628 $\pm$ 0.008 & 0.673 $\pm$ 0.010 & 0.670 $\pm$ 0.024 \\
-                                       & 40 & 0.479 $\pm$ 0.028 & 0.585 $\pm$ 0.007 & 0.561 $\pm$ 0.009 \\
-        \bottomrule
-    \end{tabular}
-    \caption{Accuracy, Precision (macro, classi note) e F1-score (macro, classi note) al variare della percentuale di micro-dropout, per le quattro architetture, dataset Oxford-IIIT Pet. Valori riportati come media $\pm$ deviazione standard su 2 seed (42, 777).}
-    \label{tab:metriche-pet}
-\end{table}
-
-\FloatBarrier
-I risultati evidenziano un trend di degradazione del Macro F1-score al crescere della percentuale di micro-dropout per tutte le architetture, sebbene con intensità differenti. EfficientNet ottiene le prestazioni più elevate a ogni livello di dropout testato ed è anche il modello più stabile tra i due seed, suggerendo una maggiore robustezza sia alla rimozione di classi che alla variabilità di inizializzazione. DenseNet, pur partendo da valori inferiori, mostra la degradazione relativa più contenuta tra il $5\%$ e il $40\%$ di dropout, risultando il modello più resiliente in termini relativi anche se non il migliore in assoluto.
-
-ResNet18 rappresenta il caso più critico: presenta il Macro F1-score più basso in quasi tutte le configurazioni ed è anche il modello con la maggiore variabilità tra seed, evidenziando una sensibilità non trascurabile sia alla perdita di classi sia all'inizializzazione casuale. ResNet50 mostra invece un andamento meno regolare, con oscillazioni non monotone lungo l'intervallo di dropout testato, verosimilmente legate alla composizione specifica del sottoinsieme di classi rimosse a ciascuna soglia piuttosto che a un reale punto di rottura strutturale del modello.
-
-Un aspetto metodologicamente rilevante emerge dal confronto tra i due seed: l'ampiezza delle bande di errore in Figura~\ref{fig:micro-dropout-pet} varia sensibilmente tra architetture, indicando che una valutazione basata su un singolo seed avrebbe potuto portare a conclusioni parzialmente fuorvianti, in particolare per ResNet18 e ResNet50.
-
-
-
-\clearpage
 \subsection*{Analisi Macro-dropout}
 
 Come mostrato in Figura~\ref{fig:macro-dropout-pet}, il macro-dropout non produce un trend di degradazione 
@@ -93,21 +46,76 @@ di rimozione, senza una direzione (o trend) definita.
     \label{tab:metriche-pet-macro}
 \end{table}
 
-I valori riportati in Tabella~\ref{tab:metriche-pet-macro} confermano quanto osservato graficamente: Accuracy, Precision e F1-score restano sostanzialmente stabili tra lo $0\%$ e il $40\%$ di macro-dropout per ciascuna architettura, con variazioni contenute entro pochi punti percentuali. Questo risultato è atteso, poiché la riduzione uniforme degli esempi in ogni classe mantiene invariata la distribuzione relativa del dataset, lasciando sostanzialmente equivalente il problema di classificazione anche con un numero minore di esempi di training.
+I valori riportati in Tabella~\ref{tab:metriche-pet-macro} confermano quanto osservato graficamente: Accuracy, Precision e F1-score restano sostanzialmente stabili tra lo $0\%$ e il $40\%$ di macro-dropout per ciascuna architettura, 
+con variazioni contenute di pochi punti percentuali. Questo risultato è atteso, poiché la riduzione uniforme degli esempi in ogni classe mantiene invariata la distribuzione relativa del dataset, 
+lasciando sostanzialmente equivalente il problema di classificazione anche con un numero minore di esempi di training.
 
-Un'eccezione riguarda ResNet18 al $40\%$ di dropout, dove la deviazione standard tra i due seed risulta sensibilmente più elevata rispetto agli altri casi ($\pm 0.087$ in Accuracy), segnale di una maggiore sensibilità di questa architettura alla variabilità di inizializzazione anche in condizioni di riduzione uniforme del dataset.
+Un'eccezione riguarda ResNet18 al $40\%$ di dropout, dove la deviazione standard tra i due seed risulta sensibilmente più elevata rispetto agli altri casi ($\pm 0.087$ in Accuracy), 
+segnale di una maggiore sensibilità di questa architettura alla variabilità di inizializzazione anche in condizioni di riduzione uniforme del dataset.
 \FloatBarrier
 
 
 \clearpage
+
+\subsection*{Analisi Micro-dropout}
+
+Come mostrato in Figura~\ref{fig:micro-dropout-pet}, il Macro F1-score\footnote{media semplice della F1 calcolata per ogni classe, limitatamente alle classi presenti nel training set (escluse quindi le razze completamente rimosse dal micro-dropout)}...\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/micro_dropout_f1.pdf}
+    \caption{Andamento del Macro F1-score sulle classi note al variare della percentuale di micro-dropout, per le quattro architetture testate sul dataset Oxford-IIIT Pet. Le bande rappresentano $\pm 1$ deviazione standard calcolata su 2 seed (42, 777).}
+    \label{fig:micro-dropout-pet}
+\end{figure}
+
+\begin{table}[!htb]
+    \centering
+    \small
+    \begin{tabular}{llccc}
+        \toprule
+        \textbf{Modello} & \textbf{Drop \%} & \textbf{Accuracy} & \textbf{Precision} & \textbf{F1-score} \\
+        \midrule
+        \multirow{3}{*}{EfficientNet} & 0  & 0.851 $\pm$ 0.029 & 0.862 $\pm$ 0.021 & 0.849 $\pm$ 0.028 \\
+                                       & 20 & 0.753 $\pm$ 0.014 & 0.798 $\pm$ 0.009 & 0.811 $\pm$ 0.002 \\
+                                       & 40 & 0.633 $\pm$ 0.016 & 0.699 $\pm$ 0.005 & 0.745 $\pm$ 0.003 \\
+        \midrule
+        \multirow{3}{*}{DenseNet}     & 0  & 0.780 $\pm$ 0.017 & 0.806 $\pm$ 0.010 & 0.779 $\pm$ 0.018 \\
+                                       & 20 & 0.691 $\pm$ 0.015 & 0.750 $\pm$ 0.007 & 0.744 $\pm$ 0.025 \\
+                                       & 40 & 0.592 $\pm$ 0.023 & 0.672 $\pm$ 0.016 & 0.702 $\pm$ 0.017 \\
+        \midrule
+        \multirow{3}{*}{ResNet50}     & 0  & 0.818 $\pm$ 0.017 & 0.836 $\pm$ 0.009 & 0.816 $\pm$ 0.018 \\
+                                       & 20 & 0.628 $\pm$ 0.012 & 0.708 $\pm$ 0.025 & 0.670 $\pm$ 0.004 \\
+                                       & 40 & 0.578 $\pm$ 0.022 & 0.684 $\pm$ 0.007 & 0.688 $\pm$ 0.018 \\
+        \midrule
+        \multirow{3}{*}{ResNet18}     & 0  & 0.719 $\pm$ 0.022 & 0.763 $\pm$ 0.011 & 0.716 $\pm$ 0.024 \\
+                                       & 20 & 0.628 $\pm$ 0.008 & 0.673 $\pm$ 0.010 & 0.670 $\pm$ 0.024 \\
+                                       & 40 & 0.479 $\pm$ 0.028 & 0.585 $\pm$ 0.007 & 0.561 $\pm$ 0.009 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Accuracy, Precision (macro, classi note) e F1-score (macro, classi note) al variare della percentuale di micro-dropout, per le quattro architetture, dataset Oxford-IIIT Pet. Valori riportati come media $\pm$ deviazione standard su 2 seed (42, 777).}
+    \label{tab:metriche-pet}
+\end{table}
+
+\FloatBarrier
+I risultati evidenziano un trend di degradazione del Macro F1-score al crescere della percentuale di micro-dropout per tutte le architetture, sebbene con intensità differenti. 
+EfficientNet ottiene le prestazioni più elevate a ogni livello di dropout testato ed è anche il modello più stabile tra i due seed, suggerendo una maggiore robustezza sia alla rimozione di classi che alla variabilità di inizializzazione. 
+DenseNet, pur partendo da valori inferiori, mostra la degradazione relativa più contenuta tra il $5\%$ e il $40\%$ di dropout, risultando il modello più resiliente in termini relativi anche se non il migliore in assoluto.
+
+ResNet18 rappresenta il caso più critico: presenta il Macro F1-score più basso in quasi tutte le configurazioni ed è anche il modello con la maggiore variabilità tra seed, evidenziando una sensibilità non trascurabile sia alla perdita di classi 
+sia all'inizializzazione casuale. ResNet50 mostra invece un andamento meno regolare, con oscillazioni non monotone lungo l'intervallo di dropout testato, verosimilmente legate alla composizione specifica del sottoinsieme di classi rimosse a ciascuna soglia piuttosto che a un reale punto di rottura strutturale del modello.
+
+Un aspetto metodologicamente rilevante emerge dal confronto tra i due seed: l'ampiezza delle bande di errore in Figura~\ref{fig:micro-dropout-pet} varia sensibilmente tra architetture, indicando che 
+una valutazione basata su un singolo seed avrebbe potuto portare a conclusioni fuorvianti, in particolare per ResNet18 e ResNet50.
+\clearpage
+
 \section{Risultati Dataset CIFAR-100}
 \label{sec:cifar100}
 
-Per il dataset CIFAR-100 sono state addestrate e valutate due sole architetture, EfficientNet e ResNet50, a causa di vincoli di tempo e di risorse di calcolo disponibili. I risultati riportati in questa sezione fanno riferimento a una singola run (seed 42).
+Per il dataset CIFAR-100 sono state addestrate e valutate due sole architetture, EfficientNet e ResNet50, a causa di vincoli di tempo e di risorse di calcolo disponibili. 
+I risultati riportati in questa sezione fanno riferimento a una singola run (seed 42).
 
 \subsection*{Analisi Macro-dropout}
 
-Come mostrato in Figura~\ref{fig:macro-dropout-cifar}, anche su CIFAR-100 il macro-dropout non produce un trend di degradazione riconoscibile: le curve di entrambe le architetture restano pressoché piatte lungo l'intero intervallo di percentuali testate.
+Come mostrato in Figura~\ref{fig:macro-dropout-cifar}, anche su CIFAR-100 il macro-dropout non produce un trend di degradazione riconoscibile: le curve di entrambe le architetture restano pressoché piatte lungo l'intero intervallo di percentuali 
+testate.
 
 \begin{figure}[!ht]
     \centering
@@ -136,21 +144,20 @@ Come mostrato in Figura~\ref{fig:macro-dropout-cifar}, anche su CIFAR-100 il mac
     \label{tab:metriche-cifar-macro}
 \end{table}
 
-I valori in Tabella~\ref{tab:metriche-cifar-macro} confermano il comportamento osservato graficamente, con variazioni minime tra lo $0\%$ e il $40\%$ di macro-dropout per entrambe le architetture. Il risultato è coerente con quanto osservato sul dataset Oxford-IIIT Pet, ed è atteso per lo stesso motivo: la riduzione uniforme degli esempi in ogni classe non altera la difficoltà relativa del problema di classificazione.
+I valori in Tabella~\ref{tab:metriche-cifar-macro} confermano il comportamento osservato graficamente, con variazioni minime tra lo $0\%$ e il $40\%$ di macro-dropout per entrambe le architetture. 
+Il risultato è coerente con quanto osservato sul dataset Oxford-IIIT Pet, ed è atteso per lo stesso motivo: la riduzione uniforme degli esempi in ogni classe non altera eccessivamente la difficoltà relativa del problema di classificazione.
 
 \FloatBarrier
 
 \subsection*{Analisi Micro-dropout}
-
-Come mostrato in Figura~\ref{fig:micro-dropout-cifar}, anche su CIFAR-100 il micro-dropout produce un trend di degradazione chiaro e monotono del Macro F1-score al crescere della percentuale di classi rimosse dal training, in linea con quanto osservato sul dataset Oxford-IIIT Pet.
-
+Come mostrato in Figura~\ref{fig:micro-dropout-cifar}, anche su CIFAR-100 il micro-dropout produce un trend di degradazione chiaro e monotono del Macro F1-score al crescere della percentuale di classi rimosse dal training, 
+in linea con quanto osservato sul dataset Oxford-IIIT Pet.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{figures/cifar_micro_dropout_f1.pdf}
     \caption{Andamento del Macro F1-score sulle classi note al variare della percentuale di micro-dropout, per EfficientNet e ResNet50 sul dataset CIFAR-100 (seed 42).}
     \label{fig:micro-dropout-cifar}
 \end{figure}
-
 \begin{table}[!htb]
     \centering
     \small
@@ -171,7 +178,10 @@ Come mostrato in Figura~\ref{fig:micro-dropout-cifar}, anche su CIFAR-100 il mic
     \label{tab:metriche-cifar-micro}
 \end{table}
 
-Il confronto con i risultati ottenuti su Oxford-IIIT Pet (Sezione~\ref{sec:pet}) evidenzia un comportamento coerente tra i due dataset: in entrambi i casi il micro-dropout causa una degradazione progressiva del Macro F1-score al crescere della percentuale di classi rimosse, sebbene con intensità diverse a seconda dell'architettura e del dataset considerato. Su CIFAR-100 il calo risulta particolarmente marcato oltre il $25\%$ di dropout, con una perdita di oltre $25$ punti percentuali di Accuracy tra il caso baseline e il $40\%$ di rimozione per entrambe le architetture. Questo risultato verrà approfondito nella discussione (Sezione~\ref{sec:discussione}).
+Il confronto con i risultati ottenuti su Oxford-IIIT Pet (Sezione~\ref{sec:pet}) evidenzia un comportamento coerente tra i due dataset: in entrambi i casi il micro-dropout causa una degradazione progressiva del Macro F1-score al crescere 
+della percentuale di classi rimosse, sebbene con intensità diverse a seconda dell'architettura e del dataset considerato. 
+Su CIFAR-100 il calo risulta particolarmente marcato oltre il $25\%$ di dropout, con una perdita di oltre $25$ punti percentuali di Accuracy tra il caso baseline e il $40\%$ di rimozione per entrambe le architetture. 
+Questo risultato verrà approfondito nella discussione (Sezione~\ref{sec:discussione}).
 
 \FloatBarrier
 
@@ -179,7 +189,7 @@ Il confronto con i risultati ottenuti su Oxford-IIIT Pet (Sezione~\ref{sec:pet})
 \section{Discussione sui risultati ottenuti}
 \label{sec:discussione}
 
-Il confronto tra i due dataset conferma alcuni pattern comuni e ne evidenzia altri specifici del dominio applicativo.
+Il confronto tra i due dataset conferma alcuni pattern comuni e ne evidenzia altri maggiormente specifici al dataset.
 
 \textbf{Macro-dropout.} Su entrambi i dataset la riduzione uniforme degli esempi per classe non produce un trend di degradazione riconoscibile: le oscillazioni osservate restano contenute (range di Macro F1 tra $0.028$ e $0.080$ per Pet, tra $0.030$ e $0.049$ per CIFAR-100), confermando che questo tipo di degradazione non altera sostanzialmente la difficoltà relativa del problema.
 
@@ -195,4 +205,5 @@ Si osserva inoltre che l'andamento della curva di degradazione è più irregolar
 
 \end{figure}
 
-In entrambi i casi, il ranking tra le architetture si mantiene coerente: EfficientNet ottiene prestazioni superiori a ResNet50 a ogni livello di dropout testato, su entrambi i dataset, confermando una maggiore robustezza generale di questa architettura alla perdita di classi durante il training.
+In entrambi i casi, il ranking tra le architetture si mantiene coerente: EfficientNet ottiene prestazioni superiori a ResNet50 a ogni livello di dropout testato, su entrambi i dataset, 
+confermando una maggiore robustezza generale di questa architettura alla perdita di classi durante il training.

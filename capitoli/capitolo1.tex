@@ -18,7 +18,9 @@ La classificazione delle sottoclassi, invece, espone la rete a un compito comple
 
 È il caso di specie come i \textit{cetacei}: condividono caratteristiche fisiche dei \textit{mammiferi} adattati ad un ambiente acquatico che possono indurre il classificatore a confonderli con i \textit{pesci}.
 
-Tale criticità nella classificazione costituisce il punto di partenza per l’analisi sperimentale presentata. Per valutare la robustezza dei classificatori gerarchici, il presente studio introduce delle riduzioni controllate del dataset di addestramento, operando su due configurazioni distinte: drop a livello \textit{coarse} (riduzione quantitativa del dataset, senza intaccare totalmente alcuna classe) e drop a livello \textit{fine} (riduzione selettiva attraverso la rimozione completa di una o più classi).
+Tale criticità nella classificazione costituisce il punto di partenza per l’analisi sperimentale presentata. Per valutare la robustezza dei classificatori gerarchici, il presente studio introduce delle riduzioni controllate del dataset di addestramento, 
+operando su due configurazioni distinte: drop a livello \textit{coarse}\footnote{riduzione quantitativa del dataset, 
+senza intaccare totalmente alcuna classe} e drop a livello \textit{fine}\footnote{riduzione selettiva attraverso la rimozione completa di una o più classi}.
 
 \section{Obiettivo e impostazione dello studio}
 
@@ -30,15 +32,17 @@ L’analisi non si limita a valutare le capacità del modello di riconoscere cat
 
 La metodologia applicata e la pipeline adottata sono descritte nel dettaglio nei capitoli successivi.
 
+\clearpage
 \section{Struttura della tesi}
 
 L’elaborato è organizzato come segue:
 
-Il Capitolo 2 descrive la pipeline adottata, i dataset utilizzati, le tipologie di reti adottate, le definizioni e implementazioni dei drop a livello coarse e fine. Si conclude con la configurazione degli esperimenti condotto
+Il Capitolo 2 descrive brevemente le reti neurali convoluzionali e i diversi tipi di backbone utilizzati.
+ 
+Il Capitolo 3 presenta la pipeline adottata, i dataset utilizzati, le difinizione e implementazioni dei due tipi di drop \textit{coarse} e \textit{fine} e le metriche di valutazioni delle backbone. 
 
-Il Capitolo 3 presenta i risultati relativi all’impatto dei drop coarse e fine sulla performance dei classificatori, analizzando (per ogni categoria e intensità di drop) l’effetto che questi provocano nelle diverse reti.
+Il Capitolo 4 presenta i risultati relativi all'impatto dei drop di tipologia \textit{coarse} e \textit{fine}, analizzando l'effetto che questi provocano nelle diverse backbone.
 
-Il Capitolo 4 affronta il caso critico di classi totalmente escluse dal training set, illustrando l’approccio basato su reti prototipiche. In particolare, il capitolo mostra come un modello, pur non avendo mai osservato determinata classi in fase di training, sia comunque in grado di discriminare e di distinguerle da altre classi partendo da poche immagini di supporto
+Il Capitolo 5 descrive e applica l'approccio delle reti prototipiche come soluzione alle basse performance del micro-droput.
 
-Il Capitolo 5 conclude la tesi riassumendo i risultati ottenuti, discutendo i limiti dello studio e possibili sviluppi futuri
-
+Il Capitolo 6 concluide la tesi con una sintesi e delle considerazioni finali.

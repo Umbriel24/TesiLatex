@@ -57,8 +57,12 @@ con $\alpha = 1.0$ e $\beta = 0.5$: il task fine-grained (micro) pesa dunque il 
 
 \subsection{Regime di addestramento}
 
-Tutti i backbone sono inizializzati con i pesi pre-addestrati su ImageNet (\texttt{PRETRAINED = True}). L'addestramento è condotto in modalità \emph{full fine-tuning}: tutti i parametri del backbone rimangono aggiornabili, insieme a quelli delle due head, anziché congelare il backbone e allenare solo le teste (\emph{feature extraction}).
-Il backbone adatta così i propri filtri  alle caratteristiche peculiari del dataset, invece di limitarsi alla feature generiche di ImageNet.
+Tutti i backbone sono inizializzati con i pesi pre-addestrati su ImageNet, secondo l'approccio del \emph{transfer learning}~\cite{yosinski2014transferablefeaturesdeepneural}. 
+Come mostrato dagli stessi autori, la specializzazione dei layer più profondi al task originario può limitare la trasferibilità delle feature se queste non vengono adattate al nuovo dominio; 
+per questo motivo l'addestramento è condotto in modalità \emph{full fine-tuning}: tutti i parametri del backbone rimangono aggiornabili, 
+insieme a quelli delle due head, anziché congelare il backbone e allenare solo le teste (\emph{feature extraction}).
+
+Il backbone adatta così i propri filtri alle caratteristiche peculiari del dataset, invece di limitarsi alla feature generiche di ImageNet.
 
 \subsection{Ottimizzazione}
 
