@@ -17,6 +17,8 @@ di rimozione, senza una direzione (o trend) definita.
     \label{fig:macro-dropout-pet}
 \end{figure}
 
+\FloatBarrier
+
 \begin{table}[!ht]
     \centering
     \small
@@ -45,6 +47,8 @@ di rimozione, senza una direzione (o trend) definita.
     per le quattro architetture, dataset Oxford-IIIT Pet. Valori riportati come media $\pm$ deviazione standard su 2 seed (42, 777).}
     \label{tab:metriche-pet-macro}
 \end{table}
+
+\FloatBarrier
 
 I valori riportati in Tabella~\ref{tab:metriche-pet-macro} confermano quanto osservato graficamente: Accuracy, Precision e F1-score restano sostanzialmente stabili tra lo $0\%$ e il $40\%$ di macro-dropout per ciascuna architettura, 
 con variazioni contenute di pochi punti percentuali. Questo risultato è atteso, poiché la riduzione uniforme degli esempi in ogni classe mantiene invariata la distribuzione relativa del dataset, 
