@@ -59,7 +59,11 @@ segnale di una maggiore sensibilità di questa architettura alla variabilità di
 
 \subsection*{Analisi Micro-dropout}
 
-Come mostrato in Figura~\ref{fig:micro-dropout-pet}, il Macro F1-score\footnote{media semplice della F1 calcolata per ogni classe, limitatamente alle classi presenti nel training set (escluse quindi le razze completamente rimosse dal micro-dropout)}...\begin{figure}[htbp]
+Come mostrato in Figura~\ref{fig:micro-dropout-pet} e in Tabella~\ref{tab:metriche-pet}, il micro-dropout produce un trend di degradazione marcato: 
+il Macro F1-score\footnote{media semplice della F1 calcolata per ogni classe, limitatamente alle classi presenti nel training set (escluse quindi le razze completamente rimosse dal micro-dropout)} 
+decresce al crescere della percentuale di rimozione delle classi, con intensità diverse tra le quattro architetture testate sul dataset Oxford-IIIT Pet.
+
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{figures/micro_dropout_f1.pdf}
     \caption{Andamento del Macro F1-score sulle classi note al variare della percentuale di micro-dropout, per le quattro architetture testate sul dataset Oxford-IIIT Pet. Le bande rappresentano $\pm 1$ deviazione standard calcolata su 2 seed (42, 777).}

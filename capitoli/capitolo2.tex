@@ -66,9 +66,21 @@ Una rete profonda non migliora le prestazioni, ma le peggiora nettamente. Non è
 
 \subsection{ResNet}
 
-ResNet (\textit{Residual Network}), proposta da He et al.~\cite{He_2016_CVPR}, introduce il concetto di \textit{residual learning}, basato sull'utilizzo di connessioni residue (\textit{skip connections}). L'obiettivo è facilitare l'ottimizzazione di reti neurali molto profonde e mitigare il problema della degradazione delle prestazioni che può manifestarsi all'aumentare della profondità della rete.
+ResNet (\textit{Residual Network}), proposta da He et al.~\cite{He_2016_CVPR}, introduce il concetto di \textit{residual learning}, basato sull'utilizzo di connessioni residue (\textit{skip connections}), con l'obiettivo di facilitare l'ottimizzazione di reti neurali molto profonde
 
-L'idea alla base di ResNet consiste nel modificare il modo in cui un blocco di layer apprende la trasformazione desiderata. Anziché apprendere direttamente una generica mappatura $H(x)$, il blocco viene addestrato ad apprendere la funzione residua $F(x)$, definita come la differenza tra la mappatura desiderata e l'input del blocco:
+Un aspetto centrale affrontato per la prima volta in modo esplicito da ResNet riguarda il problema della degradazione delle prestazioni nelle reti profonde. 
+Tale fenomeno non è riconducibile all'overfitting, poiché si osserva un aumento dell'errore anche sul training set all'aumentare della profondità della rete. 
+Il problema è piuttosto legato a specifiche difficoltà di ottimizzazione delle \textit{plain networks}\footnote{reti prive di connessioni residue}: all'aumentare del numero di layer, 
+diventa più difficile per l'algoritmo di ottimizzazione individuare parametri che permettano di approssimare correttamente la mappatura desiderata, 
+anche quando tale mappatura è teoricamente rappresentabile dalla rete.
+
+Le architetture residuali come ResNet affrontano questo problema a livello architetturale: anziché richiedere che ogni blocco apprenda direttamente l'intera trasformazione $H(x)$, le reti di questo tipo riformulano
+l'obiettivo di ciascun blocco in termini di funzione residua $F(x)$. Questa riformulazione semplifica il compito di ottimizzazione e permette alla rete di sfruttare in maniera efficiente l'aumento di profondità, invece di 
+subirne la degradazione delle prestazioni.
+
+Più precisamente, la funzione residua $F(x)$ è definita come differenza tra mappatura desiderata e input del blocco. 
+
+Indicando con:
 
 \begin{itemize}
     \item $x$: input del blocco residuo;
@@ -77,7 +89,7 @@ L'idea alla base di ResNet consiste nel modificare il modo in cui un blocco di l
     \item $y$: output del blocco residuo.
 \end{itemize}
 
-La funzione residua è quindi definita come:
+definiamo la funzione residua come:
 
 \begin{equation}
 F(x) = H(x) - x
@@ -119,7 +131,9 @@ Per evitare che questa crescita diventi insostenibile, tra un dense block e il s
 
 \subsection{EfficientNet}
 
-EfficientNet, proposta da Tan e Le~\cite{tan2020efficientnetrethinkingmodelscaling}, nasce con l'obiettivo di massimizzare l'accuracy a parità di budget computazionale. A differenza degli approcci tradizionali, che scalano una sola dimensione della rete (ad esempio aumentando la risoluzione dell'input o semplicemente la profondità della rete), gli autori citati osservano che le tre dimensioni di scaling non sono indipendenti: bilanciarle tutte, contemporaneamente,  produce risultati migliori rispetto a scalarne una sola.
+EfficientNet, proposta da Tan e Le~\cite{tan2020efficientnetrethinkingmodelscaling}, nasce con l'obiettivo di massimizzare l'accuracy a parità di budget computazionale. 
+A differenza degli approcci tradizionali, che scalano una sola dimensione della rete (ad esempio aumentando la risoluzione dell'input o semplicemente la profondità della rete), 
+gli autori citati osservano che le tre dimensioni di scaling non sono indipendenti: bilanciarle tutte, contemporaneamente,  produce risultati migliori rispetto a scalarne una sola.
 
 Le tre dimensioni in questione sono:
 \begin{itemize}
@@ -133,16 +147,20 @@ EfficientNet scala queste dimensioni tramite il \emph{compound scaling method}: 
     d = \alpha^\phi, \quad w = \beta^\phi, \quad r = \gamma^\phi, \quad \text{con} \quad \alpha \cdot \beta^2 \cdot \gamma^2 \approx 2
 \end{equation}
 
-dove \(\alpha, \beta, \gamma\) sono costanti trovate tramite grid search su un modello base (\emph{EfficientNet-B0}, ottenuto tramite \emph{NAS}, Neural Architecture Search). Queste costanti stabiliscono come ripartire l'aumento di risorse tra le tre dimensioni; è invece il coefficiente $\phi$, scelto dall'utente, a determinare quante risorse complessive si vogliono impiegare. Ogni incremento di $\phi$ porta a un raddoppio approssimativo dei FLOPs della rete (\emph{floating point operations}, il numero di operazioni in virgola mobile richieste per un'inferenza), pari a $2^\phi$.
+dove \(\alpha, \beta, \gamma\) sono costanti trovate tramite grid search su un modello base (\emph{EfficientNet-B0}, ottenuto tramite \emph{NAS}, Neural Architecture Search). 
+Queste costanti stabiliscono come ripartire l'aumento di risorse tra le tre dimensioni; è invece il coefficiente $\phi$, scelto dall'utente, a determinare quante risorse complessive si vogliono impiegare. 
+Ogni incremento di $\phi$ porta a un raddoppio approssimativo dei FLOPs\footnote{floating point operations, il numero di operazioni in virgola mobile richieste per un'inferenza} della rete, pari a $2^\phi$.
 
 \section{Analisi comparativa}
 
 Le architetture presentate affrontano da diverse prospettive il problema di rendere le reti neurali sempre più profonde ed efficienti:
 
 \begin{itemize}
-    \item \textbf{ResNet}: introduce l'apprendimento residuo tramite le skip connection, mitigando il problema del vanishing gradient;
+    \item \textbf{ResNet}: introduce l'apprendimento residuo tramite le \textit{skip connection}, semplificando il problema di ottimizzazioni delle reti profonde e permettendo di sfrutare in maniera efficace l'aumento di profondità della rete;
     \item \textbf{DenseNet}: sviluppa l'idea di connessioni tra layer, favorendo il riutilizzo delle feature tramite connessioni dense
     \item \textbf{EfficientNet}: si concentra e ottimizza il bilancio tra profondità, larghezza e risoluzione dell'immagine, per massimizzare l'accuracy con un budget di potenza di calcolo.
 \end{itemize}
 
-Una delle domande a cui questa tesi sperimentale tenta di rispondere è: come reagiscono queste diverse architetture a differenti tipologie di perdite controllate di informazioni nel training set?
+Le prime due architetture agiscono sulla connettività interna delle rete, mentre EfficientNet agise sulla dimensione globale dell'architettura.
+
+Una delle domande a cui questa tesi sperimentale tenta di rispondere è: come reagiscono questi modelli a diverse tipologie di perdite controllate di informazioni nel training set?

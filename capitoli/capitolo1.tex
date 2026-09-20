@@ -10,7 +10,7 @@ Un classificatore \textit{flat}, diversamente da un classificatore gerarchico a 
 
 Queste somiglianze sono sfruttate dai classificatori gerarchici a due livelli. Dal punto di vista architetturale, il modello diventa multi-task, in cui un backbone posto alla base estrae feature come bordi, texture, forme, mentre le due head distinte si specializzano una in classificazione \textit{coarse} e l’altra in quella \textit{fine}, utilizzando il backbone come base di partenza.
 
-Si consideri, a titolo esemplificativo, un dataset strutturato su due livelli generali: Piante e Animali, articolati a loro volta in Arboree ed Erbacee la prima, Mammiferi e Pesci la seconda.
+Si consideri, a titolo esemplificativo, un dataset strutturato su due livelli generali: \textit{Piante} e \textit{Animali}, articolati a loro volta in \textit{Arboree} ed \textit{Erbacee} la prima, \textit{Mammiferi} e \textit{Pesci} la seconda.
 
 La distinzione della superclasse risulta un compito semplice: presentano caratteristiche completamente diverse tra loro, basti immaginare un pino e un cane.
 
@@ -18,9 +18,10 @@ La classificazione delle sottoclassi, invece, espone la rete a un compito comple
 
 È il caso di specie come i \textit{cetacei}: condividono caratteristiche fisiche dei \textit{mammiferi} adattati ad un ambiente acquatico che possono indurre il classificatore a confonderli con i \textit{pesci}.
 
-Tale criticità nella classificazione costituisce il punto di partenza per l’analisi sperimentale presentata. Per valutare la robustezza dei classificatori gerarchici, il presente studio introduce delle riduzioni controllate del dataset di addestramento, 
-operando su due configurazioni distinte: drop a livello \textit{coarse}\footnote{riduzione quantitativa del dataset, 
-senza intaccare totalmente alcuna classe} e drop a livello \textit{fine}\footnote{riduzione selettiva attraverso la rimozione completa di una o più classi}.
+Tale criticità nella classificazione costituisce il punto di partenza per l’analisi sperimentale presentata. 
+
+Per valutare la robustezza dei classificatori gerarchici, il presente studio introduce delle riduzioni controllate del dataset di addestramento, 
+operando su due configurazioni distinte: drop a livello \textit{coarse} e drop a livello \textit{fine}.
 
 \section{Obiettivo e impostazione dello studio}
 
@@ -28,7 +29,7 @@ L’obiettivo dello studio è analizzare la robustezza dei modelli in condizioni
 
 Le due tipologie di drop sono introdotte a diversi livelli di intensità. Per ogni livello, valutiamo il comportamento della rete davanti ad uno stesso test set, il quale è fisso per tutti i modelli.
 
-L’analisi non si limita a valutare le capacità del modello di riconoscere categorie presenti nel set di addestramento, ma si estende al caso critico in cui alcune classi sono escluse totalmente dal set di training. In questa condizione, il classificatore non può riconoscere correttamente la classe, dato che non ha mai visto quelle caratteristiche specifiche. E’ necessario un approccio diverso, che sfrutti il modello non come semplice classificatore, ma come estrattore di feature: a partire da poche immagini di supporto (few-shot) è possibile verificare se quelle poche rappresentazioni assimilate alla rete siano sufficienti a discriminare e quindi a riconoscere categorie mai viste in addestramento.
+L’analisi non si limita a valutare le capacità del modello di riconoscere categorie presenti nel set di addestramento, ma si estende al caso critico in cui alcune classi sono escluse totalmente dal set di training. In questa condizione, il classificatore non può riconoscere correttamente la classe, dato che non ha mai visto quelle caratteristiche specifiche. E’ necessario un approccio diverso, che sfrutti il modello non come semplice classificatore, ma come estrattore di feature: a partire da poche immagini di supporto (few-shot) è possibile verificare se quelle poche rappresentazioni assimilate dalla rete siano sufficienti a discriminare e quindi a riconoscere categorie mai viste in addestramento.
 
 La metodologia applicata e la pipeline adottata sono descritte nel dettaglio nei capitoli successivi.
 
