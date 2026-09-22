@@ -1,11 +1,14 @@
 \chapter{Approccio prototypical network}
 
 \section{Motivazione: il problema delle classi non viste}
-I risultati presentati nel Capitolo~\ref{ch:risultati} hanno mostrato come il micro-dropout, ossia la rimozione di intere classi dal training set, produca una degradazione significativa delle prestazioni di classificazione, a differenza del macro-dropout, il cui impatto è risultato trascurabile su entrambi i dataset considerati. Un classificatore standard, tuttavia, non è in grado di riconoscere classi mai osservate durante l'addestramento: l'unica soluzione con gli approcci tradizionali sarebbe un nuovo addestramento completo ogni volta che emerge una nuova classe da riconoscere, con un costo computazionale spesso proibitivo.
+I risultati presentati nel Capitolo~\ref{ch:risultati} hanno mostrato come il micro-dropout, ossia la rimozione di intere classi dal training set, produca una degradazione significativa delle prestazioni di classificazione, 
+a differenza del macro-dropout, il cui impatto è risultato trascurabile su entrambi i dataset considerati. 
+Un classificatore standard, tuttavia, non è in grado di riconoscere classi mai osservate durante l'addestramento: l'unica soluzione con gli approcci tradizionali sarebbe un nuovo addestramento completo ogni volta che 
+emerge una nuova classe da riconoscere, con un costo computazionale spesso proibitivo.
 
-Il \emph{few-shot learning} affronta questo problema proponendo modelli in grado di generalizzare a nuove classi a partire da un numero molto ridotto di esempi, 
+Il \emph{few-shot learning} affronta questo problema proponendo modelli in grado di generalizzare nuove classi a partire da un numero molto ridotto di esempi, 
 senza richiedere un nuovo addestramento della rete. In questo capitolo viene adottato l'approccio delle reti prototipiche, 
-che si presta naturalmente a questo scenario grazie alla sua semplicità concettuale e all'assenza di parametri aggiuntivi da apprendere per l'integrazione di nuove classi.
+che si presta naturalmente a questo scenario grazie alla sua semplicità concettuale e all'assenza di parametri aggiuntivi da apprendere per integrare nuove classi.
 
 \section{Prototypical network: principio di funzionamento}
 Le reti prototipiche, introdotte da Snell et al.~\cite{snell2017prototypical}, apprendono uno spazio di embedding $f_\phi: \mathbb{R}^D \rightarrow \mathbb{R}^M$ 

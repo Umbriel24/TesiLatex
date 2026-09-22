@@ -108,7 +108,7 @@ EfficientNet ottiene le prestazioni più elevate a ogni livello di dropout testa
 DenseNet, pur partendo da valori inferiori, mostra la degradazione relativa più contenuta tra il $5\%$ e il $40\%$ di dropout, risultando il modello più resiliente in termini relativi anche se non il migliore in assoluto.
 
 ResNet18 rappresenta il caso più critico: presenta il Macro F1-score più basso in quasi tutte le configurazioni ed è anche il modello con la maggiore variabilità tra seed, evidenziando una sensibilità non trascurabile sia alla perdita di classi 
-sia all'inizializzazione casuale. ResNet50 mostra invece un andamento meno regolare, con oscillazioni non monotone lungo l'intervallo di dropout testato, verosimilmente legate alla composizione specifica del sottoinsieme di classi rimosse a ciascuna soglia piuttosto che a un reale punto di rottura strutturale del modello.
+sia all'inizializzazione casuale. ResNet50 mostra invece un andamento meno regolare, con oscillazioni non monotone lungo l'intervallo di dropout testato, verosimilmente dovute a una particolare combinazione di classi rimosse.
 
 Un aspetto metodologicamente rilevante emerge dal confronto tra i due seed: l'ampiezza delle bande di errore in Figura~\ref{fig:micro-dropout-pet} varia sensibilmente tra architetture, indicando che 
 una valutazione basata su un singolo seed avrebbe potuto portare a conclusioni fuorvianti, in particolare per ResNet18 e ResNet50.

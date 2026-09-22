@@ -70,12 +70,13 @@ I pesi sono aggiornati tramite l'ottimizzatore \emph{Adam}, con learning rate fi
 
 \subsection{Trasformazioni sui dati}
 
-Tutte le immagini sono ridimensionate a $224 \times 224$ pixel e normalizzate secondo media e deviazione standard di ImageNet ($\mu = [0.485, 0.456, 0.406]$, $\sigma = [0.229, 0.224, 0.225]$), coerentemente con i pesi pre-addestrati utilizzati.
+Tutte le immagini sono ridimensionate a $224 \times 224$ pixel e normalizzate secondo media e deviazione standard di ImageNet ($\mu = [0.485, 0.456, 0.406]$, $\sigma = [0.229, 0.224, 0.225]$), 
+ovvero gli stessi valori usati durante il pre-training su ImageNet.
 
-Nel set di training, all'immagine ridimensionata è applicato un \emph{random horizontal flip} con probabilità $p = 0.5$, come unica forma di data augmentation. Nei set di validazione e test non è applicata alcuna trasformazione stocastica: le immagini sono unicamente ridimensionate e normalizzate, per garantire una valutazione deterministica e riproducibile.
+Nel set di training, sull'immagine ridimensionata è applicato un \emph{random horizontal flip} con probabilità $p = 0.5$, come unica forma di data augmentation. Nei set di validazione e test non è applicata alcuna trasformazione stocastica: le immagini sono unicamente ridimensionate e normalizzate, per garantire una valutazione deterministica e riproducibile.
 
-Tutte le operazioni stocastiche (suddivisione del dataset, degradazione controllata, augmentation) sono governate da un unico seed fisso (\texttt{SEED = 777}),
-che garantisce il determinismo dell'intera pipeline.
+Tutte le operazioni stocastiche (suddivisione del dataset, degradazione controllata, augmentation) sono governate da un unico seed fisso
+che garantisce il determinismo\footnote{"L'esperimento si può riprodurre molteplici volte, con risultato analogo grazie al determinismo di un seed inserito come parametro} dell'intera pipeline.
 
 \subsection{Early stopping}
 
@@ -89,8 +90,7 @@ registrata la loss di validazione minima, corrispondente al miglior modello.
 Per studiare la robustezza delle architetture a diverse forme di perdita di informazione, 
 è stata implementata una procedura di degradazione controllata del training set, articolata in due meccanismi indipendenti: \emph{macro\_drop} e \emph{micro\_drop}. 
 Entrambi sono applicati esclusivamente al training set, lasciando i set di validazione e test sempre integri. 
-Le percentuali di degradazione applicate vanno dallo 0\% al 40\%, con incrementi del 5\%, e l'intera procedura è determinata da un seed 
-che garantisce la riproducibilità\footnote{"L'esperimento si può riprodurre molteplici volte, con risultato analogo grazie al determinismo di un seed inserito come parametro} esatta dei sottoinsiemi generati.
+Le percentuali di degradazione applicate vanno dallo 0\% al 40\%, con incrementi del 5\%, e l'intera procedura è determinata da un seed.
 
 \subsection*{Macro drop}
 
@@ -108,7 +108,8 @@ Per Oxford-IIIT Pet, la selezione è ristretta alle sole razze canine (circa 348
 
 Il numero di classi da eliminare è determinato a partire dalla percentuale di drop richiesta, calcolata sul numero di immagini anziché sul numero di classi. Ad esempio, un drop del 20\% su 3484 immagini corrisponde a circa 696 immagini da rimuovere; poiché ogni razza dispone di circa 140 immagini nel training set, questo equivale a circa 4,97 classi. L'algoritmo elimina le classi in ordine progressivo, secondo il seed fisso, rimuovendo per intero ciascuna classe prima di passare alla successiva: nell'esempio, le prime 4 classi vengono eliminate completamente, mentre la quinta viene svuotata solo parzialmente, fino al raggiungimento del numero di immagini target.
 
-Ad esempio, con \texttt{micro\_drop} al 20\% su Oxford-IIIT Pet, applicato con seed \texttt{777}, sono state selezionate le razze \emph{Yorkshire Terrier}, \emph{English Setter}, \emph{German Shorthaired Pointer} e \emph{Boxer} — le prime tre eliminate per intero, la quarta solo parzialmente.
+Ad esempio, con \texttt{micro\_drop} al 20\% su Oxford-IIIT Pet, applicato con seed \texttt{777}, sono state selezionate le razze \emph{Yorkshire Terrier}, \emph{English Setter}, \emph{German Shorthaired Pointer} e \emph{Boxer}. 
+Le prime tre classi sono eliminate per intero, la quarta solo parzialmente.
 
 La head relativa al task coarse (macro, ovvero specie o superclasse) continua ad allenarsi regolarmente sui campioni delle classi superstiti, poiché la rimozione riguarda esclusivamente le etichette del task fine-grained (micro).
 \subsection*{Effetto sulla valutazione}

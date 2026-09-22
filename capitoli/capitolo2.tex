@@ -53,6 +53,7 @@ Il numero di layer impilati si definisce profondità della rete.
 
 Si può pensare che l’aumento della profondità permette al modello di apprendere rappresentazioni sempre più complesse e astratte. Nella pratica avviene il contrario. L’aumento della profondità causa il problema del vanishing gradient.
 
+\clearpage
 Durante l’addestramento, la rete apprende l’immagine bilanciando i propri pesi. Il gradiente della loss viene calcolato con la regola della catena, propagandosi all’indietro attraverso i layer successivi con la backpropagation. Ad ogni layer il gradiente viene moltiplicato per dei fattori. Spesso, questi sono minori di 1. Con tanti layer, il gradiente tende a ridursi esponenzialmente, fino a diventare trascurabile. Ciò provoca un aggiornamento dei pesi lento, nullo in casi estremi, causando un arresto dell’apprendimento.
 
 Una rete profonda non migliora le prestazioni, ma le peggiora nettamente. Non è causato da un overfitting ma da una semplice difficoltà di ottimizzazione. Le reti utilizzate in questa tesi nascono, con strategie diverse tra loro, per affrontare questo limite.
@@ -66,10 +67,12 @@ Una rete profonda non migliora le prestazioni, ma le peggiora nettamente. Non è
 
 \subsection{ResNet}
 
-ResNet (\textit{Residual Network}), proposta da He et al.~\cite{He_2016_CVPR}, introduce il concetto di \textit{residual learning}, basato sull'utilizzo di connessioni residue (\textit{skip connections}), con l'obiettivo di facilitare l'ottimizzazione di reti neurali molto profonde
+ResNet (\textit{Residual Network}), proposta da He et al.~\cite{He_2016_CVPR}, introduce il concetto di \textit{residual learning}, basato sull'utilizzo di connessioni residue (\textit{skip connections}), 
+con l'obiettivo di facilitare l'ottimizzazione di reti neurali molto profonde.
 
 Un aspetto centrale affrontato per la prima volta in modo esplicito da ResNet riguarda il problema della degradazione delle prestazioni nelle reti profonde. 
-Tale fenomeno non è riconducibile all'overfitting, poiché si osserva un aumento dell'errore anche sul training set all'aumentare della profondità della rete. 
+Tale fenomeno non è riconducibile all'overfitting, il quale si manifesterebbe con un errore di training basso e un errore di test alto. Si osserva, invece, un aumento dell'errore anche sul training set,
+segno che il problema riguarda l'ottimizzazione della rete piuttosto che la generalizzazione.
 Il problema è piuttosto legato a specifiche difficoltà di ottimizzazione delle \textit{plain networks}\footnote{reti prive di connessioni residue}: all'aumentare del numero di layer, 
 diventa più difficile per l'algoritmo di ottimizzazione individuare parametri che permettano di approssimare correttamente la mappatura desiderata, 
 anche quando tale mappatura è teoricamente rappresentabile dalla rete.
@@ -135,6 +138,7 @@ EfficientNet, proposta da Tan e Le~\cite{tan2020efficientnetrethinkingmodelscali
 A differenza degli approcci tradizionali, che scalano una sola dimensione della rete (ad esempio aumentando la risoluzione dell'input o semplicemente la profondità della rete), 
 gli autori citati osservano che le tre dimensioni di scaling non sono indipendenti: bilanciarle tutte, contemporaneamente,  produce risultati migliori rispetto a scalarne una sola.
 
+\clearpage
 Le tre dimensioni in questione sono:
 \begin{itemize}
     \item \textbf{Profondità}: numero di layer della rete;
