@@ -4,11 +4,6 @@
 Il presente elaborato ha analizzato l'impatto di due forme di degradazione controllata del dataset di training sulla performance di classificazione di diverse architetture convoluzionali.
 I dataset scelti sono Oxford-IIIT Pet e CIFAR-100, mentre le due tipologie di degradazione sono il macro-dropout, che riduce uniformemente gli esempi di ciascuna classe, e il micro-dropout, che rimuove del tutto alcune classi.
 
-I risultati sono stati chiari: il macro-dropout non produce una degradazione significativa delle prestazioni, mentre il micro-dropout le compromette in modo progressivo, 
-con un Macro F1-score che cala al crescere della percentuale di classi rimosse. L'impatto relativo è simile tra i due dataset, ma su CIFAR-100 i livelli assoluti raggiunti sono più critici, 
-verosimilmente per la maggiore complessità intrinseca del task. In entrambi i casi EfficientNet si è confermata l'architettura più performante e robusta, mentre ResNet18 ha mostrato le maggiori criticità, 
-sia in termini di prestazioni assolute sia di stabilità tra run.
-
 I risultati hanno mostrato in modo consistente come il macro-dropout non produca una degradazione significativa delle prestazioni, 
 mentre il micro-dropout comprometta progressivamente il Macro F1-score al crescere della percentuale di classi rimosse, con un impatto relativo simile tra i due dataset ma livelli assoluti più critici su CIFAR-100, 
 verosimilmente a causa della maggiore complessità intrinseca del task. In entrambi i casi, 
@@ -17,10 +12,6 @@ EfficientNet si è confermata l'architettura più performante e robusta, mentre 
 A partire da questi risultati, è stato adottato un approccio a reti prototipiche per recuperare la capacità di riconoscere le classi escluse dal training tramite un numero ridotto di esempi di supporto. 
 I risultati ottenuti su Oxford-IIIT Pet, valutati su $30$ episodi indipendenti, hanno mostrato un recupero parziale ma consistente delle classi non viste, a fronte di un lieve peggioramento delle prestazioni sulle classi note, 
 più marcato per alcune architetture rispetto ad altre.
-
-Lo studio presenta un limite che è opportuno evidenziare esplicitamente: su CIFAR-100 sono state addestrate e valutate solamente due architetture, 
-anziché le quattro utilizzate su Pet, a causa di vincoli di tempo e di risorse di calcolo; per lo stesso motivo, la valutazione del prototypical network su CIFAR-100 è stata condotta su un singolo episodio anziché 
-su $30$ come per Pet, riducendo l'affidabilità statistica di questi risultati specifici.
 
 \section{Sviluppi futuri}
 Diversi aspetti del presente lavoro potrebbero essere approfonditi in sviluppi futuri. Un primo passo naturale consiste nell'estendere a CIFAR-100 la stessa profondità sperimentale adottata per Oxford-IIIT Pet, 
