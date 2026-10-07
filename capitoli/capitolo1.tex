@@ -2,34 +2,34 @@
 
 \section{Analisi del problema: Classificatori flat vs gerarchici}
 
-Il presente elaborato indaga la robustezza di classificatori gerarchici a due livelli, ove il primo livello specifica la superclasse di appartenenza, il secondo livello specifica la sottoclasse.
+Il presente elaborato indaga la robustezza di classificatori gerarchici a due livelli, ove il primo livello specifica la superclasse di appartenenza e il secondo specifica la sottoclasse.
 
 Tali modelli operano contemporaneamente a livello generale, definito \textit{coarse}, e a livello specifico di sottoclasse, definito \textit{fine}. La classificazione \textit{coarse} richiede l’estrazione di feature semantiche globali. La classificazione \textit{fine} è intrinsecamente più complessa: il modello deve individuare dettagli visivi altamente specifici e discriminativi tra soggetti affini, appartenenti allo stesso gruppo generale.
 
-Un classificatore \textit{flat}, diversamente da un classificatore gerarchico a due livelli, assegna l’immagine ad una delle possibili $N$ classi disponibili senza sfruttare somiglianze o differenze nette tra elementi di classi diverse. Ogni classe è trattata come equidistante dalle altre, indipendentemente dal fatto che alcune categorie condividano caratteristiche visive affini. Per un classificatore \textit{flat}, confondere un \textit{labrador} ed un \textit{golden retriever} costituisce un errore identico a confondere lo stesso \textit{labrador} con un \textit{merluzzo}.
+Un classificatore \textit{flat}, diversamente da un classificatore gerarchico a due livelli, assegna l’immagine a una delle possibili $N$ classi disponibili senza sfruttare somiglianze o differenze nette tra elementi di classi diverse. Ogni classe è trattata come equidistante dalle altre, indipendentemente dal fatto che alcune categorie condividano caratteristiche visive affini. Per un classificatore \textit{flat}, confondere un \textit{labrador} e un \textit{golden retriever} costituisce un errore equivalente a confondere lo stesso \textit{labrador} con un \textit{merluzzo}.
 
-Queste somiglianze sono sfruttate dai classificatori gerarchici a due livelli. Dal punto di vista architetturale, il modello diventa multi-task, in cui un backbone posto alla base estrae feature come bordi, texture, forme, mentre le due head distinte si specializzano una in classificazione \textit{coarse} e l’altra in quella \textit{fine}, utilizzando il backbone come base di partenza.
+Queste somiglianze sono sfruttate dai classificatori gerarchici a due livelli. Dal punto di vista architetturale, il modello diventa multi-task: un backbone condiviso estrae feature come bordi, texture e forme, mentre due head distinte, che utilizzano tali feature come base di partenza, si specializzano una nella classificazione \textit{coarse} e l’altra in quella \textit{fine}.
 
-Si consideri, a titolo esemplificativo, un dataset strutturato su due livelli generali: \textit{Piante} e \textit{Animali}, articolati a loro volta in \textit{Arboree} ed \textit{Erbacee} la prima, \textit{Mammiferi} e \textit{Pesci} la seconda.
+Si consideri, a titolo esemplificativo, un dataset con due superclassi, \textit{Piante} e \textit{Animali}, articolate a loro volta in \textit{Arboree} ed \textit{Erbacee} le prime, e in \textit{Mammiferi} e \textit{Pesci} i secondi.
 
-La distinzione della superclasse risulta un compito semplice: presentano caratteristiche completamente diverse tra loro, basti immaginare un pino e un cane.
+La distinzione tra superclassi risulta un compito relativamente semplice, poiché esse presentano caratteristiche visive marcatamente diverse tra loro, basti immaginare un pino e un cane.
 
 La classificazione delle sottoclassi, invece, espone la rete a un compito complesso.
 
-È il caso di specie come i \textit{cetacei}: condividono caratteristiche fisiche dei \textit{mammiferi} adattati ad un ambiente acquatico che possono indurre il classificatore a confonderli con i \textit{pesci}.
+È il caso di specie come i \textit{cetacei}: pur condividendo caratteristiche fisiche dei \textit{mammiferi}, il loro adattamento a un ambiente acquatico può indurre il classificatore a confonderli con i \textit{pesci}.
 
 Tale criticità nella classificazione costituisce il punto di partenza per l’analisi sperimentale presentata. 
 
 Per valutare la robustezza dei classificatori gerarchici, il presente studio introduce delle riduzioni controllate del dataset di addestramento, 
-operando su due configurazioni distinte: drop a livello \textit{coarse} e drop a livello \textit{fine}.
+operando su due configurazioni distinte: riduzione uniforme dei campioni per classe (\textit{macro-drop}) ed esclusione completa di singole classi (\textit{micro-drop}).
 
 \section{Obiettivo e impostazione dello studio}
 
-L’obiettivo dello studio è analizzare la robustezza dei modelli in condizioni di disponibilità limitate di informazioni per l’addestramento.
+L’obiettivo dello studio è analizzare la robustezza dei modelli in condizioni di disponibilità limitata di informazioni per l’addestramento.
 
-Le due tipologie di drop sono introdotte a diversi livelli di intensità. Per ogni livello, valutiamo il comportamento della rete davanti ad uno stesso test set, il quale è fisso per tutti i modelli.
+Le due tipologie di drop sono introdotte a diversi livelli di intensità. Per ogni livello, viene valutato il comportamento della rete davanti a uno stesso test set, il quale è fisso per tutti i modelli.
 
-L’analisi non si limita a valutare le capacità del modello di riconoscere categorie presenti nel set di addestramento, ma si estende al caso critico in cui alcune classi sono escluse totalmente dal set di training. In questa condizione, il classificatore non può riconoscere correttamente la classe, dato che non ha mai visto quelle caratteristiche specifiche. E’ necessario un approccio diverso, che sfrutti il modello non come semplice classificatore, ma come estrattore di feature: a partire da poche immagini di supporto (few-shot) è possibile verificare se quelle poche rappresentazioni assimilate dalla rete siano sufficienti a discriminare e quindi a riconoscere categorie mai viste in addestramento.
+L’analisi non si limita a valutare la capacità del modello di riconoscere categorie presenti nel set di addestramento, ma si estende al caso critico in cui alcune classi sono escluse totalmente dal set di training. In questa condizione, il classificatore non può riconoscere correttamente la classe, dato che tali classi sono escluse dal fine-tuning. È necessario un approccio diverso, che sfrutti il modello non come semplice classificatore, ma come estrattore di feature: a partire da poche immagini di supporto (few-shot) è possibile verificare se le rappresentazioni assimilate dalla rete siano sufficienti a discriminare e quindi a riconoscere categorie escluse dal fine-tuning.
 
 La metodologia applicata e la pipeline adottata sono descritte nel dettaglio nei capitoli successivi.
 
@@ -40,10 +40,10 @@ L’elaborato è organizzato come segue:
 
 Il Capitolo 2 descrive brevemente le reti neurali convoluzionali e i diversi tipi di backbone utilizzati.
  
-Il Capitolo 3 presenta la pipeline adottata, i dataset utilizzati, le difinizione e implementazioni dei due tipi di drop \textit{coarse} e \textit{fine} e le metriche di valutazioni delle backbone. 
+Il Capitolo 3 presenta la pipeline adottata, i dataset utilizzati, la definizione e l'implementazione delle due tipologie di drop (\textit{macro-drop} e \textit{micro-drop}) e le metriche di valutazione dei backbone. 
 
-Il Capitolo 4 presenta i risultati relativi all'impatto dei drop di tipologia \textit{coarse} e \textit{fine}, analizzando l'effetto che questi provocano nelle diverse backbone.
+Il Capitolo 4 presenta i risultati relativi all'impatto dei drop di tipologia \textit{macro} e \textit{micro}, analizzando l'effetto che questi provocano nei diversi backbone.
 
-Il Capitolo 5 descrive e applica l'approccio delle reti prototipiche come soluzione alle basse performance del micro-droput.
+Il Capitolo 5 descrive e applica l'approccio delle reti prototipiche come soluzione alle basse prestazioni causate dal micro-drop.
 
-Il Capitolo 6 concluide la tesi con una sintesi e delle considerazioni finali.
+Il Capitolo 6 conclude la tesi con una sintesi e delle considerazioni finali.

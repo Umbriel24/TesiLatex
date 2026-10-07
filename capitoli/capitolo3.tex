@@ -6,8 +6,8 @@ Per realizzare la tesi sono stati utilizzati due dataset:
 
 \begin{itemize}
 	\item \emph{Oxford-IIIT Pet}~\cite{parkhi12a}, composto da immagini di cani e gatti suddivise in 37 classi.
-	      Il dataset comprende un file di annotazione che associa ad ogni immagine una tupla
-	      (\texttt{image\_path, micro\_label e macro\_label}), ove:
+	      Il dataset comprende un file di annotazione che associa a ogni immagine una tupla
+	      (\texttt{image\_path}, \texttt{micro\_label}, \texttt{macro\_label}), ove:
 
 	      \begin{itemize}
 		      \item \texttt{micro\_label} identifica la razza tra le 37 disponibili;
@@ -15,22 +15,22 @@ Per realizzare la tesi sono stati utilizzati due dataset:
 	      \end{itemize}
 
 	      Il dataset è diviso in tre sottoinsiemi: training (70\%), validazione (15\%) e test (15\%).
-	      La suddivisione è realizzata tramite uno split in modo da preservare la distribuzione equa delle 37 classi.
-	\item \emph{CIFAR-100}~\cite{krizhevsky2009learning}, composto da 100 classi raggrupate in 20 superclassi.
-	      Ogni superclasse comprende 5 classi, per un totale di 100 fine label. Per contenere il costo
+	      La suddivisione è effettuata in modo da preservare l'equa distribuzione delle 37 classi.
+	\item \emph{CIFAR-100}~\cite{krizhevsky2009learning}, composto da 100 classi raggruppate in 20 superclassi.
+	      Ogni superclasse comprende 5 classi, per un totale di 100 \textit{fine label}. Per contenere il costo
 	      computazionale degli esperimenti, è stato estratto inizialmente un sottoinsieme di 50 campioni per ciascuna classe.
-	      Successivamente la quantità è stata aumentata a 200 campioni per classe, poiché la quantità iniziale produceva un risultato
+	      Successivamente tale numero è stato aumentato a 200 campioni per classe, poiché la quantità iniziale produceva un risultato
 	      caratterizzato da variabilità e rumore.
 
-	      Il campionamento è stato effettuato prima della suddisivione stratificata del dataset, secondo la proporzione 70\%/15\%/15\% tra training, validation e test.
+	      Il campionamento è stato effettuato prima della suddivisione stratificata del dataset, secondo la proporzione 70\%/15\%/15\% tra training, validazione e test.
 \end{itemize}
 
 \section{Architettura multi-task}
 \label{chapter:3.2}
 
-Delle famiglie architetturali presentate nel capitolo~\ref{chapter:2.2}, sono state selezionate quattro varianti come backbone per gli esperimenti: \textbf{ResNet18}, \textbf{ResNet50}, \textbf{DenseNet121} ed \textbf{EfficientNet-B0}.
+Delle famiglie architetturali presentate nella Sezione~\ref{chapter:2.2}, sono state selezionate quattro varianti come backbone per gli esperimenti: \textbf{ResNet18}, \textbf{ResNet50}, \textbf{DenseNet121} ed \textbf{EfficientNet-B0}.
 
-L'integrazione del task multi-label sui backbone descritti nel capitolo~\ref{chapter:2.2} segue uno schema standard, noto come \emph{hard parameter sharing}: un unico backbone convoluzionale è utilizzato da due head di classificazione indipendenti.
+L'integrazione dell'apprendimento multi-task su tali backbone segue uno schema standard, noto come \emph{hard parameter sharing}: un unico backbone convoluzionale condiviso è utilizzato da due head di classificazione indipendenti.
 
 Il backbone elabora l'immagine fino al GAP\footnote{GAP: \emph{Global Average Pooling}. Operazione applicata al termine del backbone che riduce ciascuna mappa di feature a un singolo valore medio, trasformando così il volume di feature tridimensionale in un vettore monodimensionale utilizzabile dalle head di classificazione.}, producendo un vettore di embedding la cui dimensione dipende dall'architettura:
 
@@ -43,15 +43,16 @@ Il backbone elabora l'immagine fino al GAP\footnote{GAP: \emph{Global Average Po
 
 Questo vettore è utilizzato in parallelo da entrambe le head.
 
-Le due head sono costituite da un singolo layer lineare (\texttt{Linear(feature\_dim, num\_classes)}). Le proiezioni delle due teste sono, rispettivamente, su 37 classi (razza) e 2 classi (specie) per Oxford-IIIT Pet; su 100 classi (\emph{fine}) e 20 classi (\emph{coarse}) per CIFAR-100.
+Le due head sono costituite da un singolo layer lineare (\texttt{Linear(feature\_dim, num\_classes)}). Le proiezioni delle due head sono, rispettivamente, su 37 classi (razza) e 2 classi (specie) per Oxford-IIIT Pet; su 100 classi (\emph{fine}) e 20 classi (\emph{coarse}) per CIFAR-100.
 
-La funzione di loss è una combinazione pesata delle due cross-entropy, tramite i coefficienti $\alpha$ e $\beta$:
+La funzione di loss è una combinazione pesata delle due cross-entropy, tramite i coefficienti $\lambda_{\text{micro}}$ e $\lambda_{\text{macro}}$:
 
 \begin{equation}
-	\mathcal{L}_{\text{tot}} = \alpha \cdot \mathcal{L}_{\text{micro}} + \beta \cdot \mathcal{L}_{\text{macro}}
+	\mathcal{L}_{\text{tot}} = \lambda_{\text{micro}} \cdot \mathcal{L}_{\text{micro}} + \lambda_{\text{macro}} \cdot \mathcal{L}_{\text{macro}},
 \end{equation}
 
-con $\alpha = 1.0$ e $\beta = 0.5$: il task fine-grained (micro) pesa dunque il doppio rispetto al task coarse (macro) nella loss totale.
+con $\lambda_{\text{micro}} = 1.0$ e $\lambda_{\text{macro}} = 0.5$: il task \emph{fine} (micro) pesa dunque il doppio rispetto al task \emph{coarse} (macro) nella loss totale.
+
 \section{Procedura di training dei modelli}
 \label{sec:procedura-training}
 
@@ -60,9 +61,9 @@ con $\alpha = 1.0$ e $\beta = 0.5$: il task fine-grained (micro) pesa dunque il 
 Tutti i backbone sono inizializzati con i pesi pre-addestrati su ImageNet, secondo l'approccio del \emph{transfer learning}~\cite{yosinski2014transferablefeaturesdeepneural}. 
 Come mostrato dagli stessi autori, la specializzazione dei layer più profondi al task originario può limitare la trasferibilità delle feature se queste non vengono adattate al nuovo dominio; 
 per questo motivo l'addestramento è condotto in modalità \emph{full fine-tuning}: tutti i parametri del backbone rimangono aggiornabili, 
-insieme a quelli delle due head, anziché congelare il backbone e allenare solo le teste (\emph{feature extraction}).
+insieme a quelli delle due head, anziché congelare il backbone e addestrare solo le head (\emph{feature extraction}).
 
-Il backbone adatta così i propri filtri alle caratteristiche peculiari del dataset, invece di limitarsi alla feature generiche di ImageNet.
+Il backbone adatta così i propri filtri alle caratteristiche peculiari del dataset, invece di limitarsi alle feature generiche di ImageNet.
 
 \subsection{Ottimizzazione}
 
@@ -76,85 +77,86 @@ ovvero gli stessi valori usati durante il pre-training su ImageNet.
 Nel set di training, sull'immagine ridimensionata è applicato un \emph{random horizontal flip} con probabilità $p = 0.5$, come unica forma di data augmentation. Nei set di validazione e test non è applicata alcuna trasformazione stocastica: le immagini sono unicamente ridimensionate e normalizzate, per garantire una valutazione deterministica e riproducibile.
 
 Tutte le operazioni stocastiche (suddivisione del dataset, degradazione controllata, augmentation) sono governate da un unico seed fisso
-che garantisce il determinismo\footnote{"L'esperimento si può riprodurre molteplici volte, con risultato analogo grazie al determinismo di un seed inserito come parametro} dell'intera pipeline.
+che garantisce il determinismo\footnote{L'esperimento si può riprodurre molteplici volte ottenendo lo stesso risultato, grazie al seed fissato come parametro.} dell'intera pipeline.
 
 \subsection{Early stopping}
 
-Il training è monitorato a ogni epoca, valutando la loss totale $\mathcal{L}_{\text{tot}}$ (calcolata con gli stessi coefficienti $\alpha$ e $\beta$ definiti in Sezione~\ref{chapter:3.2}) sul set di validazione. 
+Il training è monitorato a ogni epoca, valutando la loss totale $\mathcal{L}_{\text{tot}}$ (calcolata con gli stessi coefficienti $\lambda_{\text{micro}}$ e $\lambda_{\text{macro}}$ definiti in Sezione~\ref{chapter:3.2}) sul set di validazione. 
 È adottato un criterio di \emph{early stopping} con pazienza pari a 6 epoche: se la loss di validazione non migliora per 6 epoche 
 consecutive, l'addestramento viene interrotto anticipatamente, ripristinando i pesi del modello relativi all'epoca in cui si è 
 registrata la loss di validazione minima, corrispondente al miglior modello.
 
 \section{Degradazione controllata del training set}
+\label{sec:degradazione}
 
 Per studiare la robustezza delle architetture a diverse forme di perdita di informazione, 
-è stata implementata una procedura di degradazione controllata del training set, articolata in due meccanismi indipendenti: \emph{macro\_drop} e \emph{micro\_drop}. 
+è stata implementata una procedura di degradazione controllata del training set, articolata in due meccanismi indipendenti: \emph{macro-drop} e \emph{micro-drop}. 
 Entrambi sono applicati esclusivamente al training set, lasciando i set di validazione e test sempre integri. 
 Le percentuali di degradazione applicate vanno dallo 0\% al 40\%, con incrementi del 5\%, e l'intera procedura è determinata da un seed.
 
-\subsection*{Macro drop}
+\subsection*{Macro-drop}
 
-Il \emph{macro\_drop} simula una condizione di scarsità di dati, riducendo il numero di campioni disponibili senza mai eliminare interamente le classi. 
+Il \emph{macro-drop} simula una condizione di scarsità di dati, riducendo il numero di campioni disponibili senza mai eliminare interamente le classi. 
 La rimozione è stratificata per classe: per ogni classe viene rimossa la medesima quantità proporzionale di campioni; eventuali resti derivanti da arrotondamento vengono distribuiti in modo che alcune classi perdano 
 un campione in più o in meno rispetto alle altre. 
 
-Tutte le classi restano quindi rappresentate nel training set, con un numero di esempi ridotto. Poiché la rimozione avviene sull'intero dataset, il macro\_drop impatta contemporaneamente entrambe le head del modello.
+Tutte le classi restano quindi rappresentate nel training set, con un numero di esempi ridotto. Poiché la rimozione avviene sull'intero training set, il \emph{macro-drop} incide contemporaneamente su entrambe le head del modello.
 
-\subsection*{Micro drop}
+\subsection*{Micro-drop}
 
-Il \emph{micro\_drop} simula la scomparsa di intere classi durante il training. A ogni percentuale di degradazione, un sottoinsieme di classi (razze per Oxford-IIIT Pet, classi \emph{fine} per CIFAR-100) viene selezionato ed eliminato dal training set, corrispondente al 70\% del dataset totale.
+Il \emph{micro-drop} simula la scomparsa di intere classi durante il training. A ogni percentuale di degradazione, un sottoinsieme di classi (razze per Oxford-IIIT Pet, classi \emph{fine} per CIFAR-100) viene selezionato ed eliminato dal training set, il quale corrisponde al 70\% del dataset totale.
 
-Per Oxford-IIIT Pet, la selezione è ristretta alle sole razze canine (circa 3484 immagini nel training set, contro le 1659 delle razze feline), mentre per CIFAR-100 non è necessaria alcuna restrizione: le 100 classi \textit{fine} sono prese casualmente tramite seed. La scelta di filtrare Oxford-IIIT Pet nasce dallo sbilanciamento del dataset tra le due specie (25 razze canine contro 12 feline): una selezione casuale su tutte le 37 razze avrebbe potuto, in alcuni casi sfortunati, colpire in prevalenza o esclusivamente le razze feline, già numericamente sottorappresentate, alterando in modo incontrollato l'equilibrio tra le due categorie di livello superiore (specie).
+Per Oxford-IIIT Pet, la selezione è ristretta alle sole razze canine (circa 3484 immagini nel training set, contro le 1659 delle razze feline), mentre per CIFAR-100 non è necessaria alcuna restrizione: le classi da eliminare vengono scelte casualmente, tramite seed, tra tutte le 100 classi \textit{fine}. La scelta di filtrare Oxford-IIIT Pet nasce dallo sbilanciamento del dataset tra le due specie (25 razze canine contro 12 feline): una selezione casuale su tutte le 37 razze avrebbe potuto, in alcuni casi sfortunati, colpire in prevalenza o esclusivamente le razze feline, già numericamente sottorappresentate, alterando in modo incontrollato l'equilibrio tra le due categorie di livello superiore (specie).
 
-Il numero di classi da eliminare è determinato a partire dalla percentuale di drop richiesta, calcolata sul numero di immagini anziché sul numero di classi. Ad esempio, un drop del 20\% su 3484 immagini corrisponde a circa 696 immagini da rimuovere; poiché ogni razza dispone di circa 140 immagini nel training set, questo equivale a circa 4,97 classi. L'algoritmo elimina le classi in ordine progressivo, secondo il seed fisso, rimuovendo per intero ciascuna classe prima di passare alla successiva: nell'esempio, le prime 4 classi vengono eliminate completamente, mentre la quinta viene svuotata solo parzialmente, fino al raggiungimento del numero di immagini target.
+Il numero di classi da eliminare è determinato a partire dalla percentuale di drop richiesta, calcolata sul numero di immagini anziché sul numero di classi. Ad esempio, un drop del 20\% su 3484 immagini corrisponde a circa 696 immagini da rimuovere; poiché ogni razza dispone di circa 140 immagini nel training set, questo equivale a circa 4.97 classi. L'algoritmo elimina le classi in ordine progressivo, secondo il seed fisso, rimuovendo per intero ciascuna classe prima di passare alla successiva: nell'esempio, le prime 4 classi vengono eliminate completamente, mentre la quinta viene svuotata solo parzialmente, fino al raggiungimento del numero target di immagini.
 
-Ad esempio, con \texttt{micro\_drop} al 20\% su Oxford-IIIT Pet, applicato con seed \texttt{777}, sono state selezionate le razze \emph{Yorkshire Terrier}, \emph{English Setter}, \emph{German Shorthaired Pointer} e \emph{Boxer}. 
-Le prime tre classi sono eliminate per intero, la quarta solo parzialmente.
+Ad esempio, con \emph{micro-drop} al 20\% su Oxford-IIIT Pet, applicato con seed \texttt{777}, sono state selezionate e rimosse le razze \emph{Yorkshire Terrier}, \emph{English Setter}, \emph{German Shorthaired Pointer} e \emph{Boxer}. 
 
-La head relativa al task coarse (macro, ovvero specie o superclasse) continua ad allenarsi regolarmente sui campioni delle classi superstiti, poiché la rimozione riguarda esclusivamente le etichette del task fine-grained (micro).
+
+La head relativa al task coarse (macro, ovvero specie o superclasse) continua ad addestrarsi regolarmente sui campioni delle classi superstiti: poiché la selezione delle istanze da escludere opera su singole categorie di livello fine (micro), le restanti classi appartenenti alla medesima superclasse continuano a fornire esempi per l'aggiornamento della head coarse.
+
 \subsection*{Effetto sulla valutazione}
 
 Indipendentemente dal tipo e dall'entità della degradazione applicata in training, la valutazione finale è sempre condotta sull'insieme completo delle classi (37 per Oxford-IIIT Pet, 100 per CIFAR-100). 
-Con il micro\_drop, questo significa che il modello viene valutato anche su classi che non ha mai osservato durante l'addestramento. Tale condizione ha conseguenze dirette sulle metriche di valutazione, 
+Con il \emph{micro-drop}, questo significa che il modello viene valutato anche su classi che non ha mai osservato durante l'addestramento. Tale condizione ha conseguenze dirette sulle metriche di valutazione, 
 discusse nella Sezione~\ref{sec:metriche-valutazione}.
 
 \section{Metriche di valutazione}
+\label{sec:metriche-valutazione}
 
-Per ciascuna combinazione di modello, dataset, tipologia di degradazione, percentuale e seed, i risultati sono raccolti in tre file CSV distinti, con scopi complementari.
+I risultati degli esperimenti sono raccolti in tre tipologie di file CSV, con scopi complementari.
 
 \subsection*{Log di training}
 
 Per ogni modello viene generato un unico file di log (ad esempio \texttt{resnet18\_training\_log.csv}) che aggrega lo storico di tutte le run effettuate su quel backbone. 
-Ogni riga corrisponde a un'epoca di una specifica run, identificata da tipo di degradazione, sia percentuale che seed, e riporta la loss di training e di validazione corrispondenti.
+Ogni riga corrisponde a un'epoca di una specifica run, identificata dal tipo di degradazione, dalla percentuale e dal seed, e riporta le corrispondenti loss di training e di validazione.
 
 \subsection*{Report globale}
 
-Il report globale riporta, per ogni combinazione di tipologia di degradazione, percentuale e seed, tre valori aggregati calcolati sul test set completo (37 classi per Oxford-IIIT Pet, 100 per CIFAR-100):
+Il report globale presenta, per ogni combinazione di tipologia di degradazione, percentuale e seed, tre valori aggregati calcolati sul test set completo (37 classi per Oxford-IIIT Pet, 100 per CIFAR-100):
 
 \begin{itemize}
     \item \textbf{Accuracy}: rapporto tra predizioni corrette e totale delle predizioni, calcolata sul task micro;
-    \item \textbf{Macro F1 globale}: media aritmetica della F1-score calcolata su tutte le classi del task micro, incluse quelle non presenti nel training della run corrente;
-    \item \textbf{Macro F1 note}: media aritmetica della F1-score calcolata esclusivamente sulle classi effettivamente presenti nel training della run corrente. 
+    \item \textbf{Macro F1 globale}: media aritmetica dell'F1-score calcolato su tutte le classi del task micro, incluse quelle non presenti nel training della run corrente;
+    \item \textbf{Macro F1 note}: media aritmetica dell'F1-score calcolato esclusivamente sulle classi effettivamente presenti nel training della run corrente. 
 	L'insieme delle classi note viene ricostruito a partire dal seed della run, ripetendo la stessa procedura di degradazione applicata in fase di addestramento.
 \end{itemize}
 
-La distinzione tra le due varianti di F1 è motivata dall'effetto del \emph{micro\_drop} sulle metriche: le classi escluse dal training non ricevono mai gradiente positivo per la loro unità di output corrispondente e, 
+La distinzione tra le due varianti di F1 è motivata dall'effetto del \emph{micro-drop} sulle metriche: le classi escluse dal training ricevono soltanto gradienti che abbassano il logit della loro unità di output corrispondente e, 
 in fase di test, ottengono tipicamente F1 pari a zero (nessuna predizione corretta per quella classe). 
 
 Includendo queste classi nel calcolo della Macro F1 globale, la metrica risulta penalizzata dalle classi escluse, 
-indipendente dalla reale capacità del modello sulle classi effettivamente apprese.
+indipendentemente dalla reale capacità del modello sulle classi effettivamente apprese.
  
-La \emph{Macro F1 Note} isola questo effetto, restituendo una misura della performance del modello limitata a ciò che ha potuto effettivamente imparare.
+La \emph{Macro F1 note} isola questo effetto, restituendo una misura della performance del modello limitata a ciò che ha potuto effettivamente imparare.
 
 \subsection*{Report per classe}
 
 Il terzo file riporta, per ogni combinazione di tipologia di degradazione, percentuale e seed, una riga per ciascuna delle classi del task micro, con le seguenti informazioni:
 
 \begin{itemize}
-    \item se la classe è stata vista o meno durante il training della run corrente;
+    \item l'indicazione se la classe sia stata osservata o meno durante il training della run corrente;
     \item precision, recall, F1-score e support, calcolati sul test set.
 \end{itemize}
 
 Questo livello di dettaglio consente di analizzare l'impatto della degradazione classe per classe, distinguendo il comportamento del modello sulle classi note da quello sulle classi mai osservate in training.
-
-\label{sec:metriche-valutazione}

@@ -1,5 +1,8 @@
 \documentclass[12pt]{extreport}
 
+\usepackage{polyglossia}
+\setmainlanguage{italian}
+\usepackage{csquotes}
 \usepackage[backend=biber]{biblatex}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -42,6 +45,12 @@
 \titleformat{\section}
     {\normalfont\bfseries\fontsize{14pt}{17pt}\selectfont}
     {\thesection}
+    {1em}
+    {}
+
+\titleformat{\subsection}
+    {\normalfont\bfseries\fontsize{12pt}{15pt}\selectfont}
+    {\thesubsection}
     {1em}
     {}
     
@@ -140,7 +149,7 @@
 \include{capitoli/capitolo6}
 
 % Bibliografia
-\printbibliography[title={Bibliografia}]
+\printbibliography[heading=bibintoc,title={Bibliografia}]
 
 
 
