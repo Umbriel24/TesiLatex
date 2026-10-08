@@ -52,7 +52,7 @@ Si può pensare che l’aumento della profondità permetta al modello di apprend
 
 Durante l’addestramento, la rete apprende aggiornando i propri pesi. Il gradiente della loss viene calcolato con la regola della catena, propagandosi all’indietro attraverso i layer della rete con la \textit{backpropagation}. A ogni layer il gradiente viene moltiplicato per fattori spesso minori di 1. Con molti layer, il gradiente tende a ridursi esponenzialmente, fino a diventare trascurabile. Ciò provoca un aggiornamento dei pesi lento, nullo in casi estremi, causando un arresto dell’apprendimento.
 
-Nelle reti prive di collegamenti diretti, una profondità eccessiva non migliora le prestazioni, ma le peggiora nettamente. Tale degrado non è causato dall'overfitting, ma da una specifica difficoltà di ottimizzazione. ResNet e DenseNet, utilizzate in questa tesi, nascono con strategie diverse per affrontare questo limite; EfficientNet si concentra invece sul ridimensionamento efficiente dell'architettura.
+Nelle reti prive di collegamenti diretti, una profondità eccessiva non migliora le prestazioni, ma le peggiora nettamente. Tale degrado non è causato dall'overfitting, ma da una specifica difficoltà di ottimizzazione. ResNet e DenseNet nascono con strategie diverse per affrontare questo limite; EfficientNet si concentra invece sul ridimensionamento efficiente dell'architettura.
 
 \section{Backbone per l'estrazione di feature}
 \label{chapter:2.2}

@@ -1,7 +1,7 @@
 \chapter{Risultati e discussione}
 \label{ch:risultati}
 
-Nelle tabelle di questo capitolo le metriche sono riportate come valori compresi tra $0$ e $1$; le differenze discusse nel testo sono espresse in punti percentuali (ad esempio, una differenza di $0.05$ corrisponde a $5$ punti).
+Nelle tabelle di questo capitolo le metriche sono riportate come valori compresi tra $0$ e $1$; le differenze discusse nel testo sono espresse in punti percentuali (ad esempio, una differenza di $0.05$ corrisponde a $5$ punti). Oltre alle metriche descritte nella Sezione~\ref{sec:metriche-valutazione}, le tabelle riportano la Precision macro sulle classi note.
 
 \section{Risultati sul dataset Oxford-IIIT Pet}
 \label{sec:pet}
@@ -192,7 +192,7 @@ in linea con quanto osservato sul dataset Oxford-IIIT Pet.
 Il confronto con i risultati ottenuti su Oxford-IIIT Pet (Sezione~\ref{sec:pet}) evidenzia un comportamento coerente tra i due dataset: in entrambi i casi il micro-drop causa una degradazione progressiva del Macro F1-score al crescere 
 della percentuale di classi rimosse, sebbene con intensità diverse a seconda dell'architettura e del dataset considerati. 
 Su CIFAR-100 il calo risulta particolarmente marcato oltre il $25\%$ di drop, con una perdita di circa $25$ punti percentuali di Accuracy (fino a $27.1$ per EfficientNet e $24.7$ per ResNet50) tra il caso baseline e il $40\%$ di rimozione. 
-Questo risultato verrà approfondito nella discussione (Sezione~\ref{sec:discussione}).
+I due dataset vengono confrontati nella discussione (Sezione~\ref{sec:discussione}).
 
 \FloatBarrier
 
@@ -216,5 +216,5 @@ Si osserva inoltre che l'andamento della curva di degradazione è più irregolar
 
 \end{figure}
 
-In entrambi i casi, il ranking tra le architetture si mantiene coerente: EfficientNet ottiene prestazioni superiori a ResNet50 a ogni livello di drop testato, su entrambi i dataset, 
+In entrambi i casi, il ranking tra le architetture si mantiene coerente: EfficientNet ottiene prestazioni superiori a ResNet50 a ogni livello di drop testato, su entrambi i dataset.
 Si tratta tuttavia di un vantaggio in termini di prestazioni assolute, non di robustezza: in termini di calo relativo, su CIFAR-100 ResNet50 perde meno di EfficientNet ($-18.2\%$ contro $-19.9\%$), mentre su Pet il calo più contenuto è quello di DenseNet.
